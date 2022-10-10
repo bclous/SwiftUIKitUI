@@ -141,7 +141,8 @@ Making programmatic AutoLayout easy is the superpower of SwiftUIKitUI, but we've
 ```swift
 
 /*  Let's layout and style a typical "icon view". We'll pin it to the top corner
-    with a padding of 20, round its corners, add a border, and a background
+    with a padding of 20, round its corners, add a border, and a background.
+    No more messing with Layers or CGColors.
  */
  
 iconView.attachToParent(parentView)
