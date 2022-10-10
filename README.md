@@ -58,4 +58,17 @@ childView.attachToParent(parentView)
     .pinLeft(padding: 20)
     .makeWidth(40)
     .makeHeight(40)
+    
+    
+/*
+    Of course, we don't always want to pin a child view to its parent.
+    Let's layout another view to the right of the one above, and extend
+    it to the right edge, maintaining the same padding and 40pt height
+*/
+
+otherChildView.attachToParent(parentView)
+    .pinLeft(anchor: childView.rightAnchor, padding: 20)
+    .pinRight(padding: 20)
+    .pinTop(anchor: childView.topAnchor)
+    .pinBottom(anchor: childView.bottomAnchor)
  ```
