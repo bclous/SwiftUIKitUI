@@ -182,41 +182,8 @@ iconView.attachToParent(parentView)
     .applyBackgroundColor(UIColor.blue)
         
 ```
-
-
-/*  Let's layout and style a typical "icon view". We'll pin it to the top corner
-    with a padding of 20, round its corners, add a border, and a background.
-    No more messing with Layers or CGColors.
- */
- 
-
-        
-/*  We could even make it a circle in one line. Under the hood, this
-    combines makeWidth(...), makeHeight(...), and roundCorners(...)
- */
-        
-iconView.attachToParent(parentView)
-    .pinTop(padding: 20)
-    .pinLeft(padding: 20)
-    .makeCircle(radius: 40)
-    .addBorder(width: 2, color: UIColor.black)
-    .applyBackgroundColor(UIColor.blue)
-        
-        
-/*  Let's add a name label under the icon view.
-    We'll make sure it's the same width, shrinks to fit,
-    and style it, all in one easy chained method
- */
-        
-nameLabel.attachToParent(parentView)
-    .pinLeft(anchor: iconView.leftAnchor)
-    .pinRight(anchor: iconView.rightAnchor)
-    .pinTop(anchor: iconView.bottomAnchor, padding: 10)
-    .style(font: UIFont.systemFont(ofSize: 8), textColor: UIColor.gray, alignment: .center)
-    .adjustFontSizeToFitWidth()
-    .applyText("username")
-
-```
+           
+## UIStackView
 <br />
 Laying out views is so easy with SwiftUIKitUI that you may choose to forgo UIStackViews entirely. If not, they are now way easier to use, and almost rival the simplicity of VStack and HStack in SwiftUI. Let's layout a stack of three buttons to bottom of the parent view:
 
