@@ -190,7 +190,7 @@ iconView.attachToParent(parentView)
         
 ```
 
-###UILabel
+### UILabel
 
 UILabels have some funky qualities. They are self-sizing by default, until some other constraint pushes on them. They are single line by default, and to change that, you have to set the number of lines to...zero. They are annoying to format, as you have often have to change their text value, color, font, alignment, and textSize in multiple lines of code. SwiftUIKitUI helps to make this all easier with some more intuitive APIs:
 
