@@ -46,3 +46,14 @@ pinSides(…) is great, but only for the most basic layouts. Most layouts requir
 * matchWidth(…)
 
 * makeCircle(…)
+
+```swift
+    // Each pin assumes it's pinning that side to the equivalent // side on the parent view.
+    // i.e pinLeft pins the left anchor of the child view to the left anchor of the parent
+    // This is the equivalent of pinSides(padding: 20)
+    childView.attachToParent(parentView)
+        .pinLeft(padding: 20)
+        .pinRight(padding: 20)
+        .pinTop(padding: 20)
+        .pinBottom(padding: 20)
+ ```
