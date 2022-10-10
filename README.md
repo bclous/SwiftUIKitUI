@@ -37,7 +37,6 @@ pinSides(…) is great, but only for container views and the most basic layouts.
 /*
     Views are pinned to the same anchor on their parent view, unless we tell them otherwise.
     i.e. pinLeft() will pin the child's left view to its parent's left view.
-    This is the equivalent of pinSides(padding: 20)
  */
 
 childView.attachToParent(parentView)
@@ -45,6 +44,8 @@ childView.attachToParent(parentView)
     .pinRight(padding: 20)
     .pinTop(padding: 20)
     .pinBottom(padding: 20)
+    
+// (This is the equivalent of pinSides(padding: 20))
         
     
 /*
