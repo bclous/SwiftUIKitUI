@@ -136,7 +136,7 @@ childView.attachToParent(parentView)
 childView.bottomAnchor.constraint(lessThanOrEqualTo: parentView.bottomAnchor).isActive = true
 ```
 
-Making programmatic AutoLayout is the superpower of SwiftUIKitUI, but we've added some other sprinkles that allow you to layout and configure your views all in one chained method, keeping your code clean and readable while allowing you to build quickly. 
+Making programmatic AutoLayout easy is the superpower of SwiftUIKitUI, but we've sprinkled in some other features that allow you to layout and configure your views all in one chained method, keeping your code clean and readable while allowing you to build quickly. 
 
 ```swift
 iconView.attachToParent(parentView)
