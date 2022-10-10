@@ -5,6 +5,8 @@ SwiftUIKitUI is a set of lightweight extensions that make working with AutoLayou
 Programmatic layout in UIKit with AutoLayout is powerful, declarative, and adapts well to all the different screen sizes iOS developers are expected to support. It’s also way too verbose, overly complicated, and a pain to work with. SwiftUIKitUI aims to solves these problems while staying true to the framework and avoiding new patterns or layout paradigms. 
 
 Let’s have a look!
+<br />
+## Layout
 
 If we want to pin a view entirely to its parent, all we have to do is attach it, and pin its sides. 
 
@@ -85,8 +87,8 @@ otherChildView.attachToParent(parentView)
     .pinCenterY(anchor: childView.centerYAnchor)
     .matchHeight(anchor: childView.heightAnchor)
  ```
- 
- Hopefully you're starting to see how easy this makes simple layouts. All of the verbosity of autolayout is abstracted away (you will never write..or forget to write, translatesAutoresizingMaskIntoConstraints again), and you can chain methods together to write code quickly and cleanly. 
+ <br />
+Hopefully you're starting to see how easy this makes simple layouts. All of the verbosity of autolayout is abstracted away (you will never write..or forget to write, translatesAutoresizingMaskIntoConstraints again), and you can chain methods together to write code quickly and cleanly. 
 
 Not all layouts are this simple, however, and that's where a lot of the other optional parameters come in to play:
 
@@ -183,7 +185,7 @@ nameLabel.attachToParent(parentView)
     .applyText("username")
 
 ```
-
+<br />
 Laying out views is so easy with SwiftUIKitUI that you may choose to forgo UIStackViews entirely. If not, they are now way easier to use, and almost rival the simplicity of VStack and HStack in SwiftUI. Let's layout a stack of three buttons to bottom of the parent view:
 
 ```swift
@@ -195,7 +197,7 @@ buttonStackView.attachToParent(parentView)
     .makeVertical(spacing: 10, distribution: .fillEqually, alignment: .fill)
     .addArrangedSubviews([button1, button2, button3])
 ```
-
+<br />
 If you really want to be fancy, you can use the createChild<T>(ofType: T.Type) method provided by SwiftUIKitUI to create the stack view (or some other container view) directly in line, and (optionally) capture it in a variable. Combined with using pinSides with non default parameters, we can accomplish this whole layout in five lines!
     
 ```swift
