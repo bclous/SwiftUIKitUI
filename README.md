@@ -176,5 +176,6 @@ nameLabel.attachToParent(parentView)
     .pinTop(anchor: iconView.bottomAnchor, padding: 10)
     .style(font: UIFont.systemFont(ofSize: 8), textColor: UIColor.gray, alignment: .center)
     .adjustFontSizeToFitWidth()
+    .applyText("username")
 
 ```
