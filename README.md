@@ -34,25 +34,28 @@ pinSides(…) is great, but only for container views and the most basic layouts.
 
 
 ```swift
-    // Views are pinned to the same anchor on their parent view, unless told otherwise.
-    // i.e. pinLeft() will pin the child's left view to its parent's left view.
-    // This is the equivalent of pinSides(padding: 20)
-    
-    childView.attachToParent(parentView)
-        .pinLeft(padding: 20)
-        .pinRight(padding: 20)
-        .pinTop(padding: 20)
-        .pinBottom(padding: 20)
-        
-    /*
-        Instead of pinning a side, we can use makeWidth(..) and makeHeight(...)
-        to set an explicit height or width, in points. Let's pin a 40x40 square
-        in the upper left corner, with a padding of 20 on each side.
-    */
+/*
+    Views are pinned to the same anchor on their parent view, unless we tell them otherwise.
+    i.e. pinLeft() will pin the child's left view to its parent's left view.
+    This is the equivalent of pinSides(padding: 20)
+ */
 
-    childView.attachToParent(parentView)
-        .pinTop(padding: 20)
-        .pinLeft(padding: 20)
-        .makeWidth(40)
-        .makeHeight(40)
+childView.attachToParent(parentView)
+    .pinLeft(padding: 20)
+    .pinRight(padding: 20)
+    .pinTop(padding: 20)
+    .pinBottom(padding: 20)
+        
+    
+/*
+    Instead of pinning a side, we can use makeWidth(..) and makeHeight(...)
+    to set an explicit height or width, in points. Let's pin a 40x40 square
+    in the upper left corner, with a padding of 20 on each side.
+*/
+
+childView.attachToParent(parentView)
+    .pinTop(padding: 20)
+    .pinLeft(padding: 20)
+    .makeWidth(40)
+    .makeHeight(40)
  ```
