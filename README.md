@@ -309,7 +309,20 @@ let stackView = parentView.createChild(ofType: UIStackView.self)
     .addArrangedSubviews([button1, button2, button3])
 ```
     
+### UITableView
 
-<br />
-<br />
-UILabels are also easier to work with and more intuitive. 
+After implementing hundreds (or thousands?) of tableViews, I got really sick of the whole dance of assigning the delegate and datasource (almost always to the same ViewController implementing them), registering all the cell types, and then dequeing cells. Registering cells was not only annoying, but forgetting to do so would result in a runtime crash (assuming you hard unwrap in dequeue, which you probably do).
+
+SwiftUIKitUI has a few convenience APIs to make this a little cleaner and easier. Wherever you configure the tableView, you can use implementLocally() to assign the datasource and delegate to the viewController you're using:
+    
+```swift
+tableView.attachToParent(parentView)
+    .pinSides(useSafeAreas: true)
+    .implementLocally()
+    .hideScrollIndicator()
+```
+    
+    
+
+
+
