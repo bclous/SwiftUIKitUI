@@ -322,7 +322,13 @@ tableView.attachToParent(parentView)
     .hideScrollIndicator()
 ```
     
+Then, in cellForRow, instead of using dequeueReusableCell(...), use createCustomCellOfType<T>(type: T.Type). Under the hood, this will automatically register the cell by its class name, and then create it by using dequeueReusableCell. No more registering cells (or forgetting to)!
     
+```swift
+let cell = createCustomCellOfType(CustomCell.self)
+cell.configureCell(viewModel: customCellViewModel)
+return cell
+```
 
 
 
