@@ -144,16 +144,18 @@ childView.bottomAnchor.constraint(lessThanOrEqualTo: parentView.bottomAnchor).is
 ## Beyond Layout
 Making programmatic AutoLayout easy is the superpower of SwiftUIKitUI, but there's some other features sprinkled on top of UIView, UIStackView, UILabel, and UIImageView that allow you to layout and configure your views all in one chained method, keeping your code clean and readable while allowing you to build quickly. 
 <br />
+
 ### UIView
-<br />
+
 Layers and CGColors should be abstracted away from developers while building simple UI. Now you can round corners, add customizable borders, and change the background color of a view all in chainable methods:
-<br />
+
 ```swift
 
 iconView.roundCorners(radius: 5)
     .addBorder(width: 2, color: UIColor.black)
     .applyBackgroundColor(UIColor.blue)
 ```
+
 We can combine this with the layout methods to layout and style our view all together. Let's lay out a typical "icon view" in the upper left corner of its parent:
 <br />
 
