@@ -87,3 +87,37 @@ otherChildView.attachToParent(parentView)
  Hopefully you're starting to see how easy this makes simple layouts. All of the verbosity of autolayout is abstracted away, and you can chain methods together to write code quickly and cleanly. 
 
 Not all layouts are this simple, however, and that's where a lot of the other optional parameters come in to play:
+
+```swift
+// Constraints are set to active by default, but don't need to be
+childView.attachToParent(parentView)
+    .pinLeft(isActive: false)
+
+// Constraints are also required by default, but don't need to be
+childView.attachToParent(parentView)
+    .pinLeft(priority: .defaultLow)
+
+// Constraints can be "captured" for use later on
+var leftConstraint : NSLayoutConstraint?
+childView.attachToParent(parentView)
+    .pinLeft() { constraint in
+        leftConstraint = constraint
+    }
+
+
+/* Let's make two left constraints, both not active,
+    and capture them for later use, maybe in an animation.
+ */
+var leftConstraint1 : NSLayoutConstraint?
+var leftConstraint2: NSLayoutConstraint?
+
+childView.attachToParent(parentView)
+    .pinLeft(anchor: parentView.leftAnchor, isActive: false) { constraint in
+        leftConstraint1 = constraint
+    }
+    .pinLeft(anchor: otherChildView.leftAnchor, isActive: false) { constraint in
+        leftConstraint2 = constraint
+    }
+
+// (the parent.leftAnchor parameter is unnecessary as it is the default, but is included for clarity)
+```
