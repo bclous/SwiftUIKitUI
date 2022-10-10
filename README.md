@@ -7,7 +7,7 @@ SwiftUIKitUI is a set of lightweight extensions that make working with AutoLayou
 Programmatic layout in UIKit with AutoLayout is powerful, declarative, and adapts well to all the different screen sizes iOS developers are expected to support. It’s also way too verbose, overly complicated, and a pain to work with. SwiftUIKitUI aims to solves these problems while staying true to the framework and avoiding new patterns or layout paradigms. Let's have a look!
 <br />
 
-If you want to pin a view entirely to its parent, all we have to do is attach it, and pin its sides. 
+If you want to pin a view entirely to its parent, all you have to do is attach it, and pin its sides. 
 
 ```swift
 childView.attachToParent(parentView)
