@@ -225,6 +225,30 @@ leftLabel.attachToParent(parentView)
     .applyText(leftLabelText)
 ```
 
+If this was a TableViewCell (which it probably would be) that you wanted to make self sizing, you could wrap this all in a container view, pinned to the content view on all sides and set with an explicit height of the cell height you desire:
+
+```swift
+let containerView = UIView()
+containerView.attachToParent(contentView)
+    .pinSides()
+    .makeHeight(40)
+
+rightLabel.attachToParent(containerView)
+    .pinRight(padding: 20)
+    .pinCenterY()
+    .enforceBindingSelfSizing(direction: .horizontal)
+    .style(font: UIFont.systemFont(ofSize: 14, weight: .bold), textColor: UIColor.black, alignment: .right)
+    .applyText(rightLabelText)
+
+leftLabel.attachToParent(containerView)
+    .pinLeft(padding: 20)
+    .pinRight(anchor: rightLabel.leftAnchor, padding: 10)
+    .pinCenterY()
+    .style(font: UIFont.systemFont(ofSize: 14), textColor: UIColor.black, alignment: .left)
+    .applyText(leftLabelText)
+ ```
+
+
            
 ### UIStackView
 
