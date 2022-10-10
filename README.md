@@ -76,10 +76,8 @@ childView.attachToParent(parentView)
     
     
 /*
-    Of course, we don't always want to pin a child view to its parent.
     Let's layout another view to the right of the one above, and extend
     it to the right edge, maintaining the same padding and 40pt height. 
-    We do this by making use of the optional anchor parameter.
 */
 
 otherChildView.attachToParent(parentView)
