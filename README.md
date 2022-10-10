@@ -32,17 +32,17 @@ There are several optional arguments you can add to pinSides(...) more for custo
 
 pinSides(…) is great, but only for the most basic layouts. Most layouts require the next set of APIs:
 
-pinLeft(…), 
-pinRight(…)
-pinTop(…)
-pinBottom(…)
-pinCenterX(…)
-pinCenterY(…)
+* pinLeft(…), 
+* pinRight(…)
+* pinTop(…)
+* pinBottom(…)
+* pinCenterX(…)
+* pinCenterY(…)
 
-makeHeight(…)
-makeWidth(…)
+* makeHeight(…)
+* makeWidth(…)
 
-matchHeight(…)
-matchWidth(…)
+* matchHeight(…)
+* matchWidth(…)
 
-makeCircle(…)
+* makeCircle(…)
