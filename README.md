@@ -162,7 +162,6 @@ iconView.attachToParent(parentView)
 /*  Let's add a name label under the icon view.
     We'll make sure it's the same width, shrinks to fit,
     and style it, all in one easy chained method
-    
  */
         
 nameLabel.attachToParent(parentView)
