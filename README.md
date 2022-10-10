@@ -197,7 +197,7 @@ buttonStackView.attachToParent(parentView)
     .addArrangedSubviews([button1, button2, button3])
 ```
 <br />
-If you really want to be fancy, you can use the createChild<T>(ofType: T.Type) method provided by SwiftUIKitUI to create the stack view (or some other container view) directly in line, and (optionally) capture it in a variable. Combined with using pinSides with non default parameters, we can accomplish this whole layout in five lines!
+If you really want to be fancy, you can use the createChild<T>(ofType: T.Type) method provided by SwiftUIKitUI to create the stack view (or some other container view) directly inline, and (optionally) capture it in a variable. Combined with using pinSides(...) with non default parameters, we can accomplish this whole layout in five lines!
     
 ```swift
 let stackView = parentView.createChild(ofType: UIStackView.self)
