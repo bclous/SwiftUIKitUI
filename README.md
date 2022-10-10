@@ -98,12 +98,10 @@ otherChildView.attachToParent(parentView)
     .matchHeight(anchor: childView.heightAnchor)
  ```
  <br />
-Hopefully you're starting to see how easy this makes simple layouts. All of the verbosity of autolayout is abstracted away (you will never write..or forget to write, translatesAutoresizingMaskIntoConstraints again), and you can chain methods together to write code quickly and cleanly. 
-<br />
+Hopefully you're starting to see how easy this makes simple layouts. All of the verbosity of autolayout is abstracted away (you will never write..or forget to write, translatesAutoresizingMaskIntoConstraints again), and you can chain methods together to write code quickly and cleanly.
 <br />
 Not all layouts are this simple, however, and that's where a lot of the other optional parameters come in to play:
 <br />
-
 ```swift
 // Constraints are set to active by default, but don't need to be
 childView.attachToParent(parentView)
