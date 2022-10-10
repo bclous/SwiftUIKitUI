@@ -134,3 +134,19 @@ childView.attachToParent(parentView)
     .pinRight()
 childView.bottomAnchor.constraint(lessThanOrEqualTo: parentView.bottomAnchor).isActive = true
 ```
+
+Making programmatic AutoLayout is the superpower of SwiftUIKitUI, but we've added some other sprinkles that allow you to layout and configure your views all in one chained method, keeping your code clean and readable while allowing you to build quickly. 
+
+```swift
+/*  Let's layout and style a typical "icon view". We'll pin it to the top corner
+    with a padding of 20, round its corners, add a border, and a background
+ */
+        
+        
+childView.attachToParent(parentView)
+    .pinTop(padding: 20)
+    .pinLeft(padding: 20)
+    .roundCorners(radius: 5)
+    .addBorder(width: 2, color: UIColor.black)
+    .applyBackgroundColor(UIColor.blue)
+```
