@@ -151,7 +151,8 @@ Layers and CGColors should be abstracted away from developers while building sim
 
 ```swift
 
-iconView.roundCorners(radius: 5)
+iconView
+    .roundCorners(radius: 5)
     .addBorder(width: 2, color: UIColor.black)
     .applyBackgroundColor(UIColor.blue)
 ```
