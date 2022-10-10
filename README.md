@@ -146,6 +146,21 @@ childView.attachToParent(parentView)
 childView.bottomAnchor.constraint(lessThanOrEqualTo: parentView.bottomAnchor).isActive = true
 ```
 
+Once you get used to chaining everything, you'll want to do it everywhere. So there's even createChild() and createChild<T>(ofType: T.Type) methods which allow you to create views (and optionally capture them) directly inline. This is great for creating container views that don't need to be accessed through global variables
+    
+```swift
+let containerView = parentView.createChild()
+    .pinSides()
+
+let stackView = parentView.createChild(ofType: UIStackView.self)
+    .pinSides(padding: 20)
+
+let imageView = parentView.createChild(ofType: UIImageView.self)
+    .pinTop(padding: 20)
+    .pinLeft(padding: 20)
+    .makeCircle(radius: 40)
+```
+
 <br />
 
 ## Beyond Layout
@@ -248,19 +263,10 @@ leftLabel.attachToParent(containerView)
     .applyText(leftLabelText)
  ```
 
-Once you get used to chaining everything, you'll want to do it everywhere. So there's even a createChild() and createChild<T>(ofType: T.Type) methods which allow you to create views (and optionally capture them) directly inline. This is great for creating container views that don't need to be accessed through global variables
-    
-```swift
-let containerView = parentView.createChild()
-.pinSides()
 
-let stackView = parentView.createChild(ofType: UIStackView.self)
-.pinSides(padding: 20)
-```
-    
-    
 
-           
+    
+    
 ### UIStackView
 
 Laying out views is so easy with SwiftUIKitUI that you may choose to forgo UIStackViews entirely. If not, they are now way easier to use, and almost rival the simplicity of VStack and HStack in SwiftUI. Let's layout a stack of three buttons to bottom of the parent view:
