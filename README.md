@@ -203,3 +203,6 @@ let stackView = parentView.createChild(ofType: UIStackView.self)
     .addArrangedSubviews([button1, button2, button3])
 ```
     
+
+    
+UILabels are also easier to work with and more intuitive. 
