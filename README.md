@@ -207,7 +207,7 @@ Let's imagine you had to implement the layout shown below of a transaction/price
 
 ![rows](https://user-images.githubusercontent.com/16597079/194942759-35b19bb8-b115-4be8-abab-c6eac97f6dc6.png)
 
-SwiftUIKitUI makes this really easy and clean:
+SwiftUIKitUI makes this really easy and clean to layout and configure:
 
 ```swift
 rightLabel.attachToParent(parentView)
@@ -215,12 +215,14 @@ rightLabel.attachToParent(parentView)
     .pinCenterY()
     .enforceBindingSelfSizing(direction: .horizontal)
     .style(font: UIFont.systemFont(ofSize: 14, weight: .bold), textColor: UIColor.black, alignment: .right)
+    .applyText(rightLabelText)
 
 leftLabel.attachToParent(parentView)
     .pinLeft(padding: 20)
     .pinRight(anchor: rightLabel.leftAnchor, padding: 10)
     .pinCenterY()
     .style(font: UIFont.systemFont(ofSize: 14), textColor: UIColor.black, alignment: .left)
+    .applyText(leftLabelText)
 ```
 
            
