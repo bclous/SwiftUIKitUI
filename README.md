@@ -203,7 +203,25 @@ label
     .applyText("Hellllllllllloooo nurse")
 ```
 
+Let's imagine you had to implement the layout shown below of a transaction/price cell. The label on the right should always display, and then label on the left may get cut off if the title is too long, with a minimum of 10pts between them: <br />
+
 ![rows](https://user-images.githubusercontent.com/16597079/194942759-35b19bb8-b115-4be8-abab-c6eac97f6dc6.png)
+
+SwiftUIKitUI makes this really easy and clean:
+
+```swift
+rightLabel.attachToParent(parentView)
+    .pinRight(padding: 20)
+    .pinCenterY()
+    .enforceBindingSelfSizing(direction: .horizontal)
+    .style(font: UIFont.systemFont(ofSize: 14, weight: .bold), textColor: UIColor.black, alignment: .right)
+
+leftLabel.attachToParent(parentView)
+    .pinLeft(padding: 20)
+    .pinRight(anchor: rightLabel.leftAnchor, padding: 10)
+    .pinCenterY()
+    .style(font: UIFont.systemFont(ofSize: 14), textColor: UIColor.black, alignment: .left)
+```
 
            
 ### UIStackView
