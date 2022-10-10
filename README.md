@@ -85,7 +85,7 @@ otherChildView.attachToParent(parentView)
     .matchHeight(anchor: childView.heightAnchor)
  ```
  
- Hopefully you're starting to see how easy this makes simple layouts. All of the verbosity of autolayout is abstracted away, and you can chain methods together to write code quickly and cleanly. 
+ Hopefully you're starting to see how easy this makes simple layouts. All of the verbosity of autolayout is abstracted away (you will never write..or forget to write, translatesAutoresizingMaskIntoConstraints again), and you can chain methods together to write code quickly and cleanly. 
 
 Not all layouts are this simple, however, and that's where a lot of the other optional parameters come in to play:
 
@@ -121,4 +121,16 @@ childView.attachToParent(parentView)
     }
 
 // (the parent.leftAnchor parameter is unnecessary as it is the default, but is included for clarity)
+
+        
+/*  SwiftUIKitUI doesn't yet support lessThanOrEqualTo or greaterThanOrEqualTo constraints.
+    If you require them, just use the framework for as much as you can, and write those
+    constraints the old fashioned way. It's all constraints under the hood!
+ */
+
+childView.attachToParent(parentView)
+    .pinTop()
+    .pinLeft()
+    .pinRight()
+childView.bottomAnchor.constraint(lessThanOrEqualTo: parentView.bottomAnchor).isActive = true
 ```
