@@ -73,8 +73,10 @@ otherChildView.attachToParent(parentView)
     .pinBottom(anchor: childView.bottomAnchor)
     
     
-// Alternatively, we could have used pinCenterY and match height
-    
+/*  Alternatively, we could have used pinCenterY(...) and matchHeight(...)
+    to achieve the same layout.
+ */
+
 otherChildView.attachToParent(parentView)
     .pinLeft(anchor: childView.rightAnchor, padding: 20)
     .pinRight(padding: 20)
