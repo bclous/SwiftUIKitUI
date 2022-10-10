@@ -248,6 +248,17 @@ leftLabel.attachToParent(containerView)
     .applyText(leftLabelText)
  ```
 
+Once you get used to chaining everything, you'll want to do it everywhere. So there's even a createChild() and createChild<T>(ofType: T.Type) methods which allow you to create views (and optionally capture them) directly inline. This is great for creating container views that don't need to be accessed through global variables
+    
+```swift
+let containerView = parentView.createChild()
+.pinSides()
+
+let stackView = parentView.createChild(ofType: UIStackView.self)
+.pinSides(padding: 20)
+```
+    
+    
 
            
 ### UIStackView
