@@ -218,7 +218,7 @@ label
     .applyText("Hellllllllllloooo nurse")
 ```
 
-Let's imagine you had to implement the layout shown below of a transaction/price cell. The label on the right should always display, and then label on the left may get cut off if the title is too long, with a minimum of 10pts between them: <br />
+Let's imagine you had to implement the layout shown below of a transaction/price cell. The label on the right should always display its full value, and then label on the left may get cut off if the title is too long, with a minimum of 10pts between them: <br />
 
 ![rows](https://user-images.githubusercontent.com/16597079/194942759-35b19bb8-b115-4be8-abab-c6eac97f6dc6.png)
 
@@ -262,8 +262,27 @@ leftLabel.attachToParent(containerView)
     .applyText(leftLabelText)
  ```
 
+### UIImageView
+    
+Nothing new here, just wrapping some oft used UIImageView APIs into chainable methods so they can be combined with the layout code:
+
+```swift
+imageView
+    .clipsToBounds()
+    .applyContentMode(.scaleAspectFill)
+    .applyImageWithName("imageName")
 
 
+imageView.attachToParent(parentView)
+    .pinLeft(20)
+    .pinTop(20)
+    .makeHeight(40)
+    .makeWidth(40)
+    .roundCorners(radius: 5)
+    .clipsToBounds()
+    .applyContentMode(.scaleAspectFit)
+    .applyImageWithName("profilePicture")
+```
     
     
 ### UIStackView
