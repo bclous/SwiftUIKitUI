@@ -1,6 +1,6 @@
 # SwiftUIKitUI
 
 ```swift
-        childView.attachToParent(parentView)
-            .pinSides()
+childView.attachToParent(parentView)
+    .pinSides()
 ```
