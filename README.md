@@ -92,6 +92,7 @@ Hopefully you're starting to see how easy this makes simple layouts. All of the 
 <br />
 <br />
 Not all layouts are this simple, however, and that's where a lot of the other optional parameters come in to play:
+<br />
 
 ```swift
 // Constraints are set to active by default, but don't need to be
