@@ -243,8 +243,7 @@ leftLabel.attachToParent(parentView)
 If this was a TableViewCell (which it probably would be) that you wanted to make self sizing, you could wrap this all in a container view, pinned to the content view on all sides and set with an explicit height of the cell height you desire:
 
 ```swift
-let containerView = UIView()
-containerView.attachToParent(contentView)
+let containerView = parentView.createChild()
     .pinSides()
     .makeHeight(40)
 
