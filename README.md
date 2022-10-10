@@ -57,4 +57,18 @@ pinSides(…) is great, but only for the most basic layouts. Most layouts requir
         .pinRight(padding: 20)
         .pinTop(padding: 20)
         .pinBottom(padding: 20)
+        
+    // We can use the optional parameters to customize to our needs.
+    // Let's respect just the bottom safe area, adjust the paddings,
+    // and capture the bottom constraint for use later.
+
+    var leftConstraint : NSLayoutConstraint?
+
+    childView.attachToParent(parentView)
+        .pinTop()
+        .pinBottom()
+        .pinRight(padding: 20)
+        .pinLeft(padding: 20) { constraint in
+            leftConstraint = constraint
+        }
  ```
