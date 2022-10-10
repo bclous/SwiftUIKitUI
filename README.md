@@ -330,5 +330,5 @@ cell.configureCell(viewModel: customCellViewModel)
 return cell
 ```
 
-
+It's possible this has scroll performance implications. I couldn't find the "cost" of registering a cell anywhere. If anyone has any insight, I'd love to hear it!
 
