@@ -30,22 +30,8 @@ There are several optional arguments you can add to pinSides(...) more for custo
         .pinSides(toView: otherChildView, padding: 10)
 ```
 
-pinSides(…) is great, but only for the most basic layouts. Most layouts require the next set of APIs:
+pinSides(…) is great, but only for container views and the most basic layouts. Most layouts require more granular control. Let's see how that works:
 
-* pinLeft(…), 
-* pinRight(…)
-* pinTop(…)
-* pinBottom(…)
-* pinCenterX(…)
-* pinCenterY(…)
-
-* makeHeight(…)
-* makeWidth(…)
-
-* matchHeight(…)
-* matchWidth(…)
-
-* makeCircle(…)
 
 ```swift
     // Views are pinned to the same anchor on their parent view, unless told otherwise.
@@ -58,17 +44,15 @@ pinSides(…) is great, but only for the most basic layouts. Most layouts requir
         .pinTop(padding: 20)
         .pinBottom(padding: 20)
         
-    // We can use the optional parameters to customize to our needs.
-    // Let's respect just the bottom safe area, adjust the paddings,
-    // and capture the bottom constraint for use later.
-
-    var leftConstraint : NSLayoutConstraint?
+    /*
+        Instead of pinning a side, we can use makeWidth(..) and makeHeight(...)
+        to set an explicit height or width, in points. Let's pin a 40x40 square
+        in the upper left corner, with a padding of 20 on each side.
+    */
 
     childView.attachToParent(parentView)
-        .pinTop()
-        .pinBottom()
-        .pinRight(padding: 20)
-        .pinLeft(padding: 20) { constraint in
-            leftConstraint = constraint
-        }
+        .pinTop(padding: 20)
+        .pinLeft(padding: 20)
+        .makeWidth(40)
+        .makeHeight(40)
  ```
