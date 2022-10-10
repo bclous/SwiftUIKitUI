@@ -204,5 +204,6 @@ let stackView = parentView.createChild(ofType: UIStackView.self)
 ```
     
 
-/n/n  
+<br />
+<br />
 UILabels are also easier to work with and more intuitive. 
