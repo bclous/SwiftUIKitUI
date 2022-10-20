@@ -26,68 +26,115 @@ extension UIView {
         return self
     }
     
-    @discardableResult public func pinLeft(anchor: NSLayoutXAxisAnchor? = nil, padding: CGFloat = 0, isActive: Bool = true, priority: UILayoutPriority = .required, capture: ((_ constraint: NSLayoutConstraint) -> Void)? = nil) -> Self {
-
-        self.translatesAutoresizingMaskIntoConstraints = false
-        let anchorPoint = anchor ?? nonOptionalSuperview.leftAnchor
-        let constraint = leftAnchor.constraint(equalTo: anchorPoint, constant: padding)
-        constraint.priority = priority
-        constraint.isActive = isActive
-        capture?(constraint)
+    @discardableResult public func pinLeft(anchor: NSLayoutXAxisAnchor? = nil, padding: CGFloat = 0, respectSafeAreas: Bool = false, constraintType: ConstraintType = .equalTo, isActive: Bool = true, priority: UILayoutPriority = .required, capture: ((_ constraint: NSLayoutConstraint) -> Void)? = nil) -> Self {
+        return pinHorizontal(.left, anchor: anchor, padding: padding, respectSafeAreas: respectSafeAreas, constraintType: constraintType, isActive: isActive, priority: priority, capture: capture)
+    }
+    
+    @discardableResult public func pinRight(anchor: NSLayoutXAxisAnchor? = nil, padding: CGFloat = 0, respectSafeAreas: Bool = false, constraintType: ConstraintType = .equalTo, isActive: Bool = true, priority: UILayoutPriority = .required, capture: ((_ constraint: NSLayoutConstraint) -> Void)? = nil) -> Self {
+        return pinHorizontal(.right, anchor: anchor, padding: padding, respectSafeAreas: respectSafeAreas, constraintType: constraintType, isActive: isActive, priority: priority, capture: capture)
+    }
+    
+    @discardableResult public func pinLeading(anchor: NSLayoutXAxisAnchor? = nil, padding: CGFloat = 0, respectSafeAreas: Bool = false, constraintType: ConstraintType = .equalTo, isActive: Bool = true, priority: UILayoutPriority = .required, capture: ((_ constraint: NSLayoutConstraint) -> Void)? = nil) -> Self {
+        return pinHorizontal(.leading, anchor: anchor, padding: padding, respectSafeAreas: respectSafeAreas, constraintType: constraintType, isActive: isActive, priority: priority, capture: capture)
+    }
+    
+    @discardableResult public func pinTrailing(anchor: NSLayoutXAxisAnchor? = nil, padding: CGFloat = 0, respectSafeAreas: Bool = false, constraintType: ConstraintType = .equalTo, isActive: Bool = true, priority: UILayoutPriority = .required, capture: ((_ constraint: NSLayoutConstraint) -> Void)? = nil) -> Self {
+        return pinHorizontal(.trailing, anchor: anchor, padding: padding, respectSafeAreas: respectSafeAreas, constraintType: constraintType, isActive: isActive, priority: priority, capture: capture)
+    }
+    
+    @discardableResult public func pinTop(anchor: NSLayoutYAxisAnchor? = nil, padding: CGFloat = 0, respectSafeAreas: Bool = false, constraintType: ConstraintType = .equalTo, isActive: Bool = true, priority: UILayoutPriority = .required, capture: ((_ constraint: NSLayoutConstraint) -> Void)? = nil) -> Self {
+        return pinVertical(.top, anchor: anchor, padding: padding, respectSafeAreas: respectSafeAreas, constraintType: constraintType, isActive: isActive, priority: priority, capture: capture)
+    }
+    
+    @discardableResult public func pinBottom(anchor: NSLayoutYAxisAnchor? = nil, padding: CGFloat = 0, respectSafeAreas: Bool = false, constraintType: ConstraintType = .equalTo, isActive: Bool = true, priority: UILayoutPriority = .required, capture: ((_ constraint: NSLayoutConstraint) -> Void)? = nil) -> Self {
+        return pinVertical(.bottom, anchor: anchor, padding: padding, respectSafeAreas: respectSafeAreas, constraintType: constraintType, isActive: isActive, priority: priority, capture: capture)
+    }
+    
+    @discardableResult public func pinCenterX(anchor: NSLayoutXAxisAnchor? = nil, offset: CGFloat = 0, respectSafeAreas: Bool = false, constraintType: ConstraintType = .equalTo, isActive: Bool = true, priority: UILayoutPriority = .required, capture: ((_ constraint: NSLayoutConstraint) -> Void)? = nil) -> Self {
+        return pinHorizontal(.centerX, anchor: anchor, padding: offset, respectSafeAreas: respectSafeAreas, constraintType: constraintType, isActive: isActive, priority: priority, capture: capture)
+    }
+    
+    @discardableResult public func pinCenterY(anchor: NSLayoutYAxisAnchor? = nil, offset: CGFloat = 0, respectSafeAreas: Bool = false, constraintType: ConstraintType = .equalTo, isActive: Bool = true, priority: UILayoutPriority = .required, capture: ((_ constraint: NSLayoutConstraint) -> Void)? = nil) -> Self {
+        return pinVertical(.centerY, anchor: anchor, padding: offset, respectSafeAreas: respectSafeAreas, constraintType: constraintType, isActive: isActive, priority: priority, capture: capture)
+    }
+    
+    @discardableResult public func pinCenter(toView anchorView: UIView? = nil, verticalOffset: CGFloat = 0, horizontalOffset: CGFloat = 0, capture: ((_ constraints: CenterConstraints) -> Void)? = nil) -> Self {
+        
+        var centerXConstraint : NSLayoutConstraint!
+        var centerYConstraint : NSLayoutConstraint!
+        
+        pinCenterX(anchor: anchorView?.centerXAnchor, offset: horizontalOffset) { constraint in
+            centerXConstraint = constraint
+        }
+        
+        pinCenterY(anchor: anchorView?.centerYAnchor, offset: verticalOffset) { constraint in
+            centerYConstraint = constraint
+        }
+        
+        let centerConstraints = CenterConstraints(centerXConstraint: centerXConstraint, centerYConstraint: centerYConstraint)
+        capture?(centerConstraints)
         return self
     }
     
-    @discardableResult public func pinRight(anchor: NSLayoutXAxisAnchor? = nil, padding: CGFloat = 0, isActive: Bool = true, priority: UILayoutPriority = .required, capture: ((_ constraint: NSLayoutConstraint) -> Void)? = nil) -> Self {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        let anchorPoint = anchor ?? nonOptionalSuperview.rightAnchor
-        let constraint = rightAnchor.constraint(equalTo: anchorPoint, constant: -padding)
-        constraint.priority = priority
-        constraint.isActive = isActive
-        capture?(constraint)
+    // pin center here
+    
+    @discardableResult public func matchHeight(anchor: NSLayoutDimension? = nil, offset: CGFloat = 0, multiplier: CGFloat = 1, constraintType: ConstraintType = .equalTo, isActive: Bool = true, priority: UILayoutPriority = .required, capture: ((_ constraint: NSLayoutConstraint) -> Void)? = nil) -> Self {
+        return matchSizeType(.height, anchor: anchor, offset: offset, multiplier: multiplier, constraintType: constraintType, isActive: isActive, priority: priority, capture: capture)
+    }
+    
+    @discardableResult public func matchWidth(anchor: NSLayoutDimension? = nil, offset: CGFloat = 0, multiplier: CGFloat = 1, constraintType: ConstraintType = .equalTo, isActive: Bool = true, priority: UILayoutPriority = .required, capture: ((_ constraint: NSLayoutConstraint) -> Void)? = nil) -> Self {
+        return matchSizeType(.width, anchor: anchor, offset: offset, multiplier: multiplier, constraintType: constraintType, isActive: isActive, priority: priority, capture: capture)
+    }
+    
+    @discardableResult public func matchSize(toView anchorView: UIView? = nil, offset: CGFloat, multiplier: CGFloat = 1, isActive: Bool = true, priority: UILayoutPriority = .required, capture: ((_ sizeConstraints: SizeConstraints) -> Void)? = nil) -> Self {
+        var heightConstraint : NSLayoutConstraint!
+        var widthConstraint : NSLayoutConstraint!
+        
+        matchHeight(anchor: anchorView?.heightAnchor, offset: offset, multiplier: multiplier, isActive: isActive, priority: priority) { constraint in
+            heightConstraint = constraint
+        }
+        
+        matchWidth(anchor: anchorView?.heightAnchor, offset: offset, multiplier: multiplier, isActive: isActive, priority: priority) { constraint in
+            widthConstraint = constraint
+        }
+        
+        capture?(SizeConstraints(heightConstraint: heightConstraint, widthConstraint: widthConstraint))
         return self
     }
     
-    @discardableResult public func pinTop(anchor: NSLayoutYAxisAnchor? = nil, padding: CGFloat = 0, isActive: Bool = true, priority: UILayoutPriority = .required, capture: ((_ constraint: NSLayoutConstraint) -> Void)? = nil) -> Self {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        let anchorPoint = anchor ?? nonOptionalSuperview.topAnchor
-        let constraint = topAnchor.constraint(equalTo: anchorPoint, constant: padding)
-        constraint.isActive = isActive
-        constraint.priority = priority
-        capture?(constraint)
-        return self
+    @discardableResult public func makeHeight(_ constant: CGFloat, constraintType: ConstraintType = .equalTo, isActive: Bool = true, priority: UILayoutPriority = .required, capture: ((_ constraint: NSLayoutConstraint) -> Void)? = nil) -> Self {
+        let constraint = SizeType.height.constraintForConstant(view: self, constant: constant, constraintType: constraintType)
+        return handleConstraint(constraint, isActive: isActive, priority: priority, capture: capture)
     }
     
-    @discardableResult public func pinBottom(anchor: NSLayoutYAxisAnchor? = nil, padding: CGFloat = 0, isActive: Bool = true, priority: UILayoutPriority = .required, capture: ((_ constraint: NSLayoutConstraint) -> Void)? = nil) -> Self {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        let anchorPoint = anchor ?? nonOptionalSuperview.bottomAnchor
-        let constraint = bottomAnchor.constraint(equalTo: anchorPoint, constant: -padding)
-        constraint.priority = priority
-        constraint.isActive = isActive
-        capture?(constraint)
-        return self
+    @discardableResult public func makeWidth(_ constant: CGFloat, constraintType: ConstraintType = .equalTo, isActive: Bool = true, priority: UILayoutPriority = .required, capture: ((_ constraint: NSLayoutConstraint) -> Void)? = nil) -> Self {
+        let constraint = SizeType.width.constraintForConstant(view: self, constant: constant, constraintType: constraintType)
+        return handleConstraint(constraint, isActive: isActive, priority: priority, capture: capture)
     }
     
-    @discardableResult public func pinCenterX(anchor: NSLayoutXAxisAnchor? = nil, offset: CGFloat = 0, isActive: Bool = true, priority: UILayoutPriority = .required, capture: ((_ constraint: NSLayoutConstraint) -> Void)? = nil) -> Self {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        let anchorPoint = anchor ?? nonOptionalSuperview.centerXAnchor
-        let constraint = centerXAnchor.constraint(equalTo: anchorPoint, constant: offset)
-        constraint.isActive = isActive
-        constraint.priority = priority
-        capture?(constraint)
+    @discardableResult public func makeSize(_ constant: CGFloat, constraintType: ConstraintType = .equalTo, isActive: Bool = true, priority: UILayoutPriority = .required, capture: ((_ sizeConstraints: SizeConstraints) -> Void)? = nil) -> Self {
+        var heightConstraint : NSLayoutConstraint!
+        var widthConstraint : NSLayoutConstraint!
+        
+        makeHeight(constant, constraintType: constraintType, isActive: isActive, priority: priority) { constraint in
+            heightConstraint = constraint
+        }
+        makeWidth(constant, constraintType: constraintType, isActive: isActive, priority: priority) { constraint in
+            widthConstraint = widthConstraint
+        }
+        
+        capture?(SizeConstraints(heightConstraint: heightConstraint, widthConstraint: widthConstraint))
         return self
+    
     }
     
-    @discardableResult public func pinCenterY(anchor: NSLayoutYAxisAnchor? = nil, offset: CGFloat = 0, isActive: Bool = true, priority: UILayoutPriority = .required, capture: ((_ constraint: NSLayoutConstraint) -> Void)? = nil) -> Self {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        let anchorPoint = anchor ?? nonOptionalSuperview.centerYAnchor
-        let constraint = centerYAnchor.constraint(equalTo: anchorPoint, constant: offset)
-        constraint.priority = priority
-        constraint.isActive = isActive
-        capture?(constraint)
-        return self
+    @discardableResult public func makeCircle(diameter: CGFloat, capture: ((_ sizeConstraints: SizeConstraints) -> Void)? = nil) -> Self {
+        return self.makeSize(diameter, capture: capture)
+            .roundCorners(radius: diameter / 2)
     }
     
-    @discardableResult public func pinSides(_ sides: [Side] = [.left, .right, .top, .bottom], toView anchorView: UIView? = nil, padding: CGFloat = 0, customPadding: [Padding] = [], useSafeAreas: Bool = false, customSafeAreas: [Side] = [], capture: ((_ constraints: SideConstraints) -> Void)? = nil) -> Self {
+    
+    @discardableResult public func pinSides(_ sides: [Side] = [.left, .right, .top, .bottom], toView anchorView: UIView? = nil, padding: CGFloat = 0, customPadding: [Padding] = [], respectSafeAreas: Bool = false, customSafeAreas: [Side] = [], capture: ((_ constraints: SideConstraints) -> Void)? = nil) -> Self {
         let viewToPinTo = anchorView ?? nonOptionalSuperview
         self.translatesAutoresizingMaskIntoConstraints = false
         
@@ -109,10 +156,10 @@ extension UIView {
             }
         }
         
-        var useLeftSafeArea = useSafeAreas
-        var useRightSafeArea = useSafeAreas
-        var useTopSafeArea = useSafeAreas
-        var useBottomSafeArea = useSafeAreas
+        var useLeftSafeArea = respectSafeAreas
+        var useRightSafeArea = respectSafeAreas
+        var useTopSafeArea = respectSafeAreas
+        var useBottomSafeArea = respectSafeAreas
         
         for safeArea in customSafeAreas {
             switch safeArea {
@@ -127,10 +174,10 @@ extension UIView {
             }
         }
         
-        var leftConstraint : NSLayoutConstraint?
-        var rightConstraint : NSLayoutConstraint?
-        var topConstraint : NSLayoutConstraint?
-        var bottomConstraint : NSLayoutConstraint?
+        var leftConstraint : NSLayoutConstraint!
+        var rightConstraint : NSLayoutConstraint!
+        var topConstraint : NSLayoutConstraint!
+        var bottomConstraint : NSLayoutConstraint!
         
         let leftAnchorTarget = useLeftSafeArea ? viewToPinTo.safeAreaLayoutGuide.leftAnchor : viewToPinTo.leftAnchor
         let rightAnchorTarget = useRightSafeArea ? viewToPinTo.safeAreaLayoutGuide.rightAnchor : viewToPinTo.rightAnchor
@@ -161,66 +208,33 @@ extension UIView {
         return self
     }
     
-    @discardableResult public func pinCenter(toView anchorView: UIView? = nil, verticleOffset: CGFloat = 0, horizontalOffset: CGFloat = 0, capture: ((_ constraints: CenterConstraints) -> Void)? = nil) -> Self {
-        
-        var centerXConstraint : NSLayoutConstraint?
-        var centerYConstraint : NSLayoutConstraint?
-        
-        pinCenterX(anchor: anchorView?.centerXAnchor, offset: horizontalOffset) { constraint in
-            centerXConstraint = constraint
-        }
-        
-        pinCenterY(anchor: anchorView?.centerYAnchor, offset: verticleOffset) { constraint in
-            centerYConstraint = constraint
-        }
-        
-        let centerConstraints = CenterConstraints(centerXConstraint: centerXConstraint, centerYConstraint: centerYConstraint)
-        capture?(centerConstraints)
-        return self
+    
+    // Implementation only, don't really want to expose these and complicate which method should be used when
+    
+    @discardableResult private func pinHorizontal(_ pinType: HorizontalPinType, anchor: NSLayoutXAxisAnchor?, padding: CGFloat, respectSafeAreas: Bool, constraintType: ConstraintType, isActive: Bool, priority: UILayoutPriority, capture: ((_ constraint: NSLayoutConstraint) -> Void)?) -> Self {
+        let anchorPoint = anchor ?? pinType.parentMirrorAnchor(parentView: nonOptionalSuperview, respectsSafeAreas: respectSafeAreas)
+        let constraint = pinType.constraint(view: self, anchor: anchorPoint, constraintType: constraintType, padding: padding)
+        return handleConstraint(constraint, isActive: isActive, priority: priority, capture: capture)
     }
     
-    @discardableResult public func matchHeight(anchor: NSLayoutDimension? = nil, offset: CGFloat = 0, multiplier: CGFloat = 1, isActive: Bool = true, priority: UILayoutPriority = .required, capture: ((_ constraint: NSLayoutConstraint) -> Void)? = nil) -> Self {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        let anchor = anchor ?? nonOptionalSuperview.heightAnchor
-        let constraint = heightAnchor.constraint(equalTo: anchor, multiplier: multiplier, constant: offset)
-        constraint.isActive = isActive
-        constraint.priority = priority
-        capture?(constraint)
-        return self
+    @discardableResult private func pinVertical(_ pinType: VerticalPinType, anchor: NSLayoutYAxisAnchor?, padding: CGFloat, respectSafeAreas: Bool, constraintType: ConstraintType, isActive: Bool, priority: UILayoutPriority, capture: ((_ constraint: NSLayoutConstraint) -> Void)?) -> Self {
+        let anchorPoint = anchor ?? pinType.parentMirrorAnchor(parentView: nonOptionalSuperview, respectsSafeAreas: respectSafeAreas)
+        let constraint = pinType.constraint(view: self, anchor: anchorPoint, constraintType: constraintType, padding: padding)
+        return handleConstraint(constraint, isActive: isActive, priority: priority, capture: capture)
     }
     
-    @discardableResult public func matchWidth(anchor: NSLayoutDimension? = nil, offset: CGFloat = 0, multiplier: CGFloat = 1, isActive: Bool = true, priority: UILayoutPriority = .required, capture: ((_ constraint: NSLayoutConstraint) -> Void)? = nil) -> Self {
+    @discardableResult private func matchSizeType(_ sizeType: SizeType, anchor: NSLayoutDimension?, offset: CGFloat, multiplier: CGFloat, constraintType: ConstraintType, isActive: Bool, priority: UILayoutPriority, capture: ((_ constraint: NSLayoutConstraint) -> Void)?) -> Self {
+        let anchorPoint = anchor ?? sizeType.anchorForView(nonOptionalSuperview)
+        let constraint = sizeType.constraint(view: self, anchor: anchorPoint, constraintType: constraintType, offSet: offset, multiplier: multiplier)
+        return handleConstraint(constraint, isActive: isActive, priority: priority, capture: capture)
+    }
+    
+    @discardableResult private func handleConstraint(_ constraint: NSLayoutConstraint, isActive: Bool, priority: UILayoutPriority, capture: ((_ constraint: NSLayoutConstraint) -> Void)?) -> Self {
         self.translatesAutoresizingMaskIntoConstraints = false
-        let anchor = anchor ?? nonOptionalSuperview.widthAnchor
-        let constraint = widthAnchor.constraint(equalTo: anchor, multiplier: multiplier, constant: offset)
         constraint.priority = priority
         constraint.isActive = isActive
         capture?(constraint)
         return self
-    }
-    
-    @discardableResult public func makeHeight(_ constant: CGFloat, isActive: Bool = true, priority: UILayoutPriority = .required, capture: ((_ constraint: NSLayoutConstraint) -> Void)? = nil) -> Self {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        let constraint = heightAnchor.constraint(equalToConstant: constant)
-        constraint.isActive = isActive
-        constraint.priority = priority
-        capture?(constraint)
-        return self
-    }
-    
-    @discardableResult public func makeWidth(_ constant: CGFloat, isActive: Bool = true, priority: UILayoutPriority = .required, capture: ((_ constraint: NSLayoutConstraint) -> Void)? = nil) -> Self {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        let constraint = widthAnchor.constraint(equalToConstant: constant)
-        constraint.isActive = isActive
-        constraint.priority = priority
-        capture?(constraint)
-        return self
-    }
-    
-    @discardableResult public func makeCircle(radius: CGFloat) -> Self {
-        return self.makeWidth(radius)
-            .makeHeight(radius)
-            .roundCorners(radius: radius / 2)
     }
     
     fileprivate var nonOptionalSuperview : UIView {
@@ -229,31 +243,165 @@ extension UIView {
         }
         return superview
     }
-    
 }
 
-public struct SideConstraints {
-    let leftConstraint : NSLayoutConstraint?
-    let rightConstraint : NSLayoutConstraint?
-    let topConstraint : NSLayoutConstraint?
-    let bottomConstraint : NSLayoutConstraint?
-}
-
-public struct CenterConstraints {
-    let centerXConstraint : NSLayoutConstraint?
-    let centerYConstraint : NSLayoutConstraint?
-}
-
-public enum Padding {
-    case left(_ value: CGFloat)
-    case right(_ value: CGFloat)
-    case top(_ value: CGFloat)
-    case bottom(_ value: CGFloat)
-}
-
-public enum Side {
+fileprivate enum HorizontalPinType {
     case left
     case right
+    case leading
+    case trailing
+    case centerX
+    
+    private func offsetFromPadding(_ padding: CGFloat) -> CGFloat {
+        switch self {
+        case .left:
+            return padding
+        case .right:
+            return -padding
+        case .leading:
+            return UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft ? -padding : padding
+        case .trailing:
+            return UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft ? padding : -padding
+        case .centerX:
+            return padding
+        }
+    }
+    
+    public func parentMirrorAnchor(parentView: UIView, respectsSafeAreas: Bool) -> NSLayoutXAxisAnchor {
+        switch self {
+        case .left:
+            return respectsSafeAreas ? parentView.safeAreaLayoutGuide.leftAnchor : parentView.leftAnchor
+        case .right:
+            return respectsSafeAreas ? parentView.safeAreaLayoutGuide.rightAnchor : parentView.rightAnchor
+        case .leading:
+            return respectsSafeAreas ? parentView.safeAreaLayoutGuide.leadingAnchor : parentView.leadingAnchor
+        case .trailing:
+            return respectsSafeAreas ? parentView.safeAreaLayoutGuide.trailingAnchor : parentView.trailingAnchor
+        case .centerX:
+            return respectsSafeAreas ? parentView.safeAreaLayoutGuide.centerXAnchor : parentView.centerXAnchor
+        }
+    }
+    
+    public func constraint(view: UIView, anchor: NSLayoutXAxisAnchor, constraintType: ConstraintType, padding: CGFloat) -> NSLayoutConstraint {
+        
+        let viewAnchor = viewAnchor(view)
+        let constant = offsetFromPadding(padding)
+        switch constraintType {
+        case .equalTo:
+            return viewAnchor.constraint(equalTo: anchor, constant: constant)
+        case .lessThanOrEqualTo:
+            return viewAnchor.constraint(lessThanOrEqualTo: anchor, constant: constant)
+        case .greaterThanOrEqualTo:
+            return viewAnchor.constraint(greaterThanOrEqualTo: anchor, constant: constant)
+        }
+    }
+    
+    private func viewAnchor(_ view: UIView) -> NSLayoutXAxisAnchor {
+        switch self {
+        case .left:
+            return view.leftAnchor
+        case .right:
+            return view.rightAnchor
+        case .leading:
+            return view.leadingAnchor
+        case .trailing:
+            return view.trailingAnchor
+        case .centerX:
+            return view.centerXAnchor
+        }
+    }
+}
+
+fileprivate enum VerticalPinType {
     case top
     case bottom
+    case centerY
+    
+    private func offsetFromPadding(_ padding: CGFloat) -> CGFloat {
+        switch self {
+        case .top:
+            return padding
+        case .bottom:
+            return -padding
+        case .centerY:
+            return padding
+        }
+    }
+    
+    public func parentMirrorAnchor(parentView: UIView, respectsSafeAreas: Bool) -> NSLayoutYAxisAnchor {
+        switch self {
+        case .top:
+            return respectsSafeAreas ? parentView.safeAreaLayoutGuide.topAnchor : parentView.topAnchor
+        case .bottom:
+            return respectsSafeAreas ? parentView.safeAreaLayoutGuide.bottomAnchor : parentView.bottomAnchor
+        case .centerY:
+            return respectsSafeAreas ? parentView.safeAreaLayoutGuide.centerYAnchor : parentView.centerYAnchor
+        }
+    }
+    
+    public func constraint(view: UIView, anchor: NSLayoutYAxisAnchor, constraintType: ConstraintType, padding: CGFloat) -> NSLayoutConstraint {
+        
+        let viewAnchor = viewAnchor(view)
+        let constant = offsetFromPadding(padding)
+        switch constraintType {
+        case .equalTo:
+            return viewAnchor.constraint(equalTo: anchor, constant: constant)
+        case .lessThanOrEqualTo:
+            return viewAnchor.constraint(lessThanOrEqualTo: anchor, constant: constant)
+        case .greaterThanOrEqualTo:
+            return viewAnchor.constraint(greaterThanOrEqualTo: anchor, constant: constant)
+        }
+    }
+    
+    private func viewAnchor(_ view: UIView) -> NSLayoutYAxisAnchor {
+        switch self {
+        case .top:
+            return view.topAnchor
+        case .bottom:
+            return view.bottomAnchor
+        case .centerY:
+            return view.centerYAnchor
+        }
+    }
+}
+
+fileprivate enum SizeType {
+    case height
+    case width
+    
+    public func constraint(view: UIView, anchor: NSLayoutDimension, constraintType: ConstraintType, offSet: CGFloat, multiplier: CGFloat) -> NSLayoutConstraint {
+        let viewAnchor = self.anchorForView(view)
+        switch constraintType {
+        case .equalTo:
+            return viewAnchor.constraint(equalTo: anchor, multiplier: multiplier, constant: offSet)
+        case .lessThanOrEqualTo:
+            return viewAnchor.constraint(lessThanOrEqualTo: anchor, multiplier: multiplier, constant: offSet)
+        case .greaterThanOrEqualTo:
+            return viewAnchor.constraint(greaterThanOrEqualTo: anchor, multiplier: multiplier, constant: offSet)
+        }
+    }
+    
+    public func constraintForConstant(view: UIView, constant: CGFloat, constraintType: ConstraintType) -> NSLayoutConstraint {
+        let viewAnchor = self.anchorForView(view)
+        switch constraintType {
+        case .equalTo:
+            return viewAnchor.constraint(equalToConstant: constant)
+        case .lessThanOrEqualTo:
+            return viewAnchor.constraint(lessThanOrEqualToConstant: constant)
+        case .greaterThanOrEqualTo:
+            return viewAnchor.constraint(greaterThanOrEqualToConstant: constant)
+        }
+    }
+    
+    public func anchorForView(_ view: UIView) -> NSLayoutDimension {
+        switch self {
+        case .height:
+            return view.heightAnchor
+        case .width:
+            return view.widthAnchor
+        }
+    }
+    
+    
+    
 }
