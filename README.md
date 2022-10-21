@@ -62,7 +62,7 @@ childView.attachToParent(parentView)
     
 ```
 
-#### On to the real stuff...
+<br />
 
 pinSides(…) is great, but only for container views and the most basic layouts. SUKUI provides several more granular APIs which are likely the ones you'll use most of the time:
  
