@@ -7,7 +7,7 @@ SwiftUIKitUI is a set of lightweight extensions that make working with AutoLayou
 Programmatic layout in UIKit with AutoLayout is powerful, imperative, and adapts well to all the different screen sizes iOS developers are expected to support. It’s also way too verbose, overly complicated, and a pain to work with. SwiftUIKitUI aims to solves these problems while staying true to the framework and avoiding new patterns or layout paradigms. Let's have a look!
 <br />
 
-Let's say you wanted to pin a view directly to its parent on all sides, with a padding of 20 points. Normally, you'd' have to write something like this:
+Let's say you want to pin a view directly to its parent, with a padding of 20pts on each side. Your standard "container" view. Normally, you' have to write something like this:
 
 ```swift
 parentView.addSubview(childView)
@@ -37,26 +37,26 @@ That's it! pinSides(...) is the most basic method (we'll get to more advanced st
 childView.attachToParent(parentView)
     .pinSides(toView: otherChildView, padding: 20)
 
-// Or we could add a custom padding on the left and the right
+// Want to customize the padding? No problem
 childView.attachToParent(parentView)
-    .pinSides(toView: otherChildView, padding: 20, customPadding: [.left(40), .right(40)])
+    .pinSides(padding: 20, customPadding: [.left(40), .right(40)])
 
 // Safe areas are not respected by default, but we can change that
 childView.attachToParent(parentView)
-    .pinSides(toView: otherChildView, padding: 20, customPadding: [.left(40), .right(40)], respectSafeAreas: true)
+    .pinSides(respectSafeAreas: true)
 
 // We can even capture the constraints if we need to reference and/or mutate them later
 var topConstraint : NSLayoutConstraint!
 
 childView.attachToParent(parentView)
-    .pinSides(toView: otherChildView, padding: 20, customPadding: [.left(40), .right(40)], respectSafeAreas: false) { constraints in
+    .pinSides(toView: otherChildView, padding: 20) { constraints in
         topConstraint = constraints.topConstraint
     }
 ```
 
-pinSides(…) is great, but only for container views and the most basic layouts. Let's pin a view to it's parent, but this time with somre more granular APIs. 
+pinSides(…) is great, but only for container views and the most basic layouts. Let's pin a view to it's parent, but this time with the more granular APIs SUIKUI provides. 
 
-
+```swift
 /*  Views are pinned to the same anchor on their parent view, unless we tell them otherwise.
     i.e. pinLeft() will pin the child's left view to its parent's left view.    */
 
