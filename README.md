@@ -10,6 +10,7 @@ Programmatic layout in UIKit with AutoLayout is powerful, imperative, and adapts
 Let's say you want to pin a view directly to its parent, with a padding of 20pts on each side. Your standard "container" view. Normally, you' have to write something like this:
 
 ```swift
+
 parentView.addSubview(childView)
 childView.translatesAutoresizingMaskIntoConstraints = false
 NSLayoutConstraint.activate([
@@ -18,6 +19,7 @@ NSLayoutConstraint.activate([
     childView.topAnchor.constraint(equalTo: parentView.topAnchor, constant: 20),
     childView.bottomAnchor.constraint(equalTo: parentView.bottomAnchor, constant: -20)
 ])
+
 ```
 
 Yuck. So verbose! Five references to parentView. Six to childView! Of course, don't forget to set  translatesAutoresizingMaskIntoConstraints = false, because, reasons (but seriously, don't forget). Wrapping each constraint in an array inside a static method on NSLayoutConstraint? Cool. Oh, and intimate knowledge of the unique iOS coordinate system is required to make sure you don't set the signs on the constants incorrectly. Fantastic.  
@@ -25,13 +27,16 @@ Yuck. So verbose! Five references to parentView. Six to childView! Of course, do
 There must be a better way! With SUIKUI, there is.  
 
 ```swift
+
 childView.attachToParent(parentView)
     .pinSides(padding: 20)
+    
 ```
 
 That's it! pinSides(...) is the most basic method (we'll get to more advanced stuff in a bit) but its worth exploring some of the optional parameters because the patterns you see here are mostly consistent throughout SUIKUI. 
 
 ```swift
+
 // We don't always want to pin a view to its parent. Lets pin to another child view instead
 // Be careful here, just like with autolayout, they must share an ancestor
 childView.attachToParent(parentView)
@@ -52,11 +57,13 @@ childView.attachToParent(parentView)
     .pinSides(toView: otherChildView, padding: 20) { constraints in
         topConstraint = constraints.topConstraint
     }
+    
 ```
 
 pinSides(…) is great, but only for container views and the most basic layouts. Let's pin a view to it's parent, but this time with the more granular APIs SUIKUI provides. 
 
 ```swift
+
 /*  Views are pinned to the same anchor on their parent view, unless we tell them otherwise.
     i.e. pinLeft() will pin the child's left view to its parent's left view.    */
 
@@ -67,6 +74,7 @@ childView.attachToParent(parentView)
     .pinBottom()
     
 // this is the equivalent to pinSides()
+
 ```
 
 You'll notice how you can chain these methods together, which is a signature feature in SUIKUI. It makes writing layout code (and other UIKit code as you'll see below) really quick and easy. This style was inpsired by SwiftUI, but unlike SwiftUI, the order in which you chain these methods does not matter, so go nuts.
@@ -74,11 +82,10 @@ You'll notice how you can chain these methods together, which is a signature fea
 Let's keep going: 
 
 ```swift 
-/*
-    Of course, we don't always want to pin a child anchor to its parent's
+
+/*  Of course, we don't always want to pin a child anchor to its parent's
     corresponding anchor. We can use the optional anchor parameter to set a 
-    different one whereever we want, and optionally add padding.
- */
+    different one whereever we want, and optionally add padding.    */
  
  childView.attachToParent(parentView)
     .pinLeft(padding: 20)
@@ -86,11 +93,9 @@ Let's keep going:
     .pinTop(padding: 20)
     .pinBottom(anchor: otherChildView.topAnchor)
     
-/*
-    Instead of pinning sides, we can use makeWidth(..) and makeHeight(...)
+/*  Instead of pinning sides, we can use makeWidth(..) and makeHeight(...)
     to set an explicit height or width, in points. Let's pin a 40x40 square
-    in the upper left corner, with a padding of 20 on each side.
-*/
+    in the upper left corner, with a padding of 20 on each side.    */
 
 childView.attachToParent(parentView)
     .pinTop(padding: 20)
@@ -98,10 +103,8 @@ childView.attachToParent(parentView)
     .makeWidth(40)
     .makeHeight(40)
     
-/*
-    Let's layout another view to the right of the one above, and extend
-    it to the right edge, maintaining the same padding and 40pt height. 
-*/
+/*   Let's layout another view to the right of the one above, and extend
+     it to the right edge, maintaining the same padding and 40pt height.    */
 
 otherChildView.attachToParent(parentView)
     .pinLeft(anchor: childView.rightAnchor, padding: 20)
@@ -110,16 +113,15 @@ otherChildView.attachToParent(parentView)
     .pinBottom(anchor: childView.bottomAnchor)
     
     
-/*  
-    Alternatively, we could have used pinCenterY(...) and matchHeight(...)
-    to achieve the same layout.
-*/
+/*  Alternatively, we could have used pinCenterY(...) and matchHeight(...)
+    to achieve the same layout.     */
 
 otherChildView.attachToParent(parentView)
     .pinLeft(anchor: childView.rightAnchor, padding: 20)
     .pinRight(padding: 20)
     .pinCenterY(anchor: childView.centerYAnchor)
     .matchHeight(anchor: childView.heightAnchor)
+    
  ```
  
 Hopefully you're starting to see how easy this makes simple layouts. All of the verbosity of autolayout is abstracted away and you can chain methods together to write code quickly and cleanly. Not all layouts are this simple, however, and that's where a lot of the other optional parameters come in to play:
