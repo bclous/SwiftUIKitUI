@@ -184,6 +184,13 @@ let imageView = parentView.createChild(ofType: UIImageView.self)
     .pinLeft(padding: 20)
     .makeCircle(radius: 40)
 ```
+    
+Everything you think you'd want, is probably there. Make sure you explore the full set of layout APIs:
+    
+    * `pinSides(...)`
+    * `pinSides(...)`
+    * `pinSides(...)`
+    
 
 <br />
 
