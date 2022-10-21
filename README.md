@@ -212,8 +212,6 @@ let imageView = parentView.createChild(ofType: UIImageView.self)
     .pinLeft(padding: 20)
     .makeCircle(radius: 40)
 ```
-    
-Everything you think you'd want, is probably there. Make sure you explore the full set of layout APIs:
 
 ## Beyond Layout
 Making programmatic AutoLayout easy is the superpower of SwiftUIKitUI, but there's some other features sprinkled on top of UIView, UIStackView, UILabel, and UIImageView that allow you to layout and configure your views all in one chained method, keeping your code clean and readable while allowing you to build quickly. 
