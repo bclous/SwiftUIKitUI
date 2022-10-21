@@ -32,6 +32,7 @@ childView.attachToParent(parentView)
     .pinSides(padding: 20)
     
 ```
+<br />
 
 That's it! pinSides(...) is the most basic method (we'll get to more advanced stuff in a bit) but its worth exploring some of the optional parameters because the patterns you see here are mostly consistent throughout SUIKUI. 
 
