@@ -78,7 +78,12 @@ pinSides(…) is great, but only for container views and the most basic layouts.
 #### Centers
 * `pinCenterX(...)`
 * `pinCenterY(...)`
-* `pinCenter(...)`    
+* `pinCenter(...)` 
+
+#### Matching sizes
+* `matchHeight(...)`
+* `matchWidth(...)`
+* `matchSize(...)`  
 
 #### Constant sizes
 * `makeHeight(...)`
@@ -86,10 +91,6 @@ pinSides(…) is great, but only for container views and the most basic layouts.
 * `makeSize(...)`
 * `makeCircle(...)`
 
-#### Matching sizes
-* `matchHeight(...)`
-* `matchWidth(...)`
-* `matchSize(...)`
 <br />
 
 ```swift
