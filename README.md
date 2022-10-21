@@ -191,22 +191,21 @@ Everything you think you'd want, is probably there. Make sure you explore the fu
 * `pinRight(...)`
 * `pinLeading(...)`
 * `pinTrailing(...)`
-    <br />
+<br />
 * `pinTop(...)`
 * `pinBottom(...)`
-    <br />
+<br />
 * `pinCenterX(...)`
 * `pinCenterY(...)`
-    <br />
+<br />
 * `makeHeight(...)`
 * `makeWidth(...)`
 * `makeSize(...)`
 * `makeCircle(...)`
-    <br />
+<br />
 * `matchHeight(...)`
 * `matchWidth(...)`
 * `matchSize(...)`
-
 <br />
 
 ## Beyond Layout
