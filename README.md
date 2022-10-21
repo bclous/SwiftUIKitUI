@@ -196,7 +196,6 @@ Everything you think you'd want, is probably there. Make sure you explore the fu
 * `pinBottom(...)`
     
 #### Centers
-<br />
 * `pinCenterX(...)`
 * `pinCenterY(...)`
 * `pinCenter(...)`    
