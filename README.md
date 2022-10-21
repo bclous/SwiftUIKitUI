@@ -191,18 +191,18 @@ Everything you think you'd want, is probably there. Make sure you explore the fu
 * `pinRight(...)`
 * `pinLeading(...)`
 * `pinTrailing(...)`
-    
+    <br />
 * `pinTop(...)`
 * `pinBottom(...)`
-    
+    <br />
 * `pinCenterX(...)`
 * `pinCenterY(...)`
-    
+    <br />
 * `makeHeight(...)`
 * `makeWidth(...)`
 * `makeSize(...)`
 * `makeCircle(...)`
-    
+    <br />
 * `matchHeight(...)`
 * `matchWidth(...)`
 * `matchSize(...)`
