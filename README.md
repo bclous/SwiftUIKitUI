@@ -64,7 +64,33 @@ childView.attachToParent(parentView)
 
 #### On to the real stuff...
 
-pinSides(…) is great, but only for container views and the most basic layouts. Let's pin a view to it's parent, but this time with the more granular APIs SUIKUI provides. 
+pinSides(…) is great, but only for container views and the most basic layouts. Suikui provides several more granular APIs which are likely the ones you'll use most of the time:
+
+    
+#### Sides
+* `pinLeft(...)`
+* `pinRight(...)`
+* `pinLeading(...)`
+* `pinTrailing(...)`
+* `pinTop(...)`
+* `pinBottom(...)`
+    
+#### Centers
+* `pinCenterX(...)`
+* `pinCenterY(...)`
+* `pinCenter(...)`    
+
+#### Constant sizes
+* `makeHeight(...)`
+* `makeWidth(...)`
+* `makeSize(...)`
+* `makeCircle(...)`
+
+#### Matching sizes
+* `matchHeight(...)`
+* `matchWidth(...)`
+* `matchSize(...)`
+<br />
 
 ```swift
 
@@ -186,31 +212,6 @@ let imageView = parentView.createChild(ofType: UIImageView.self)
 ```
     
 Everything you think you'd want, is probably there. Make sure you explore the full set of layout APIs:
-    
-#### Sides
-* `pinLeft(...)`
-* `pinRight(...)`
-* `pinLeading(...)`
-* `pinTrailing(...)`
-* `pinTop(...)`
-* `pinBottom(...)`
-    
-#### Centers
-* `pinCenterX(...)`
-* `pinCenterY(...)`
-* `pinCenter(...)`    
-
-#### Constant sizes
-* `makeHeight(...)`
-* `makeWidth(...)`
-* `makeSize(...)`
-* `makeCircle(...)`
-
-#### Matching sizes
-* `matchHeight(...)`
-* `matchWidth(...)`
-* `matchSize(...)`
-<br />
 
 ## Beyond Layout
 Making programmatic AutoLayout easy is the superpower of SwiftUIKitUI, but there's some other features sprinkled on top of UIView, UIStackView, UILabel, and UIImageView that allow you to layout and configure your views all in one chained method, keeping your code clean and readable while allowing you to build quickly. 
