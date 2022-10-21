@@ -187,12 +187,25 @@ let imageView = parentView.createChild(ofType: UIImageView.self)
     
 Everything you think you'd want, is probably there. Make sure you explore the full set of layout APIs:
     
-* `pinSides(...)`
-* `pinSides(...)`
-* `pinSides(...)`
+* `pinLeft(...)`
+* `pinRight(...)`
+* `pinLeading(...)`
+* `pinTrailing(...)`
     
-    * `PointFree`
+* `pinTop(...)`
+* `pinBottom(...)`
     
+* `pinCenterX(...)`
+* `pinCenterY(...)`
+    
+* `makeHeight(...)`
+* `makeWidth(...)`
+* `makeSize(...)`
+* `makeCircle(...)`
+    
+* `matchHeight(...)`
+* `matchWidth(...)`
+* `matchSize(...)`
 
 <br />
 
