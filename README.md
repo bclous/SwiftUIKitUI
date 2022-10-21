@@ -64,9 +64,8 @@ childView.attachToParent(parentView)
 
 #### On to the real stuff...
 
-pinSides(…) is great, but only for container views and the most basic layouts. Suikui provides several more granular APIs which are likely the ones you'll use most of the time:
-
-    
+pinSides(…) is great, but only for container views and the most basic layouts. SUKUI provides several more granular APIs which are likely the ones you'll use most of the time:
+ 
 #### Sides
 * `pinLeft(...)`
 * `pinRight(...)`
@@ -92,6 +91,8 @@ pinSides(…) is great, but only for container views and the most basic layouts.
 * `makeCircle(...)`
 
 <br />
+
+Let's see them in action:
 
 ```swift
 
