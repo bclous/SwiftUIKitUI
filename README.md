@@ -53,10 +53,11 @@ childView.attachToParent(parentView)
 
 // We can even capture the constraints if we need to reference and/or mutate them later
 var topConstraint : NSLayoutConstraint!
-
+var bottomConstraint : NSLayoutConstraint!
 childView.attachToParent(parentView)
     .pinSides(toView: otherChildView, padding: 20) { constraints in
         topConstraint = constraints.topConstraint
+        bottomConstraint = constraints.bottomConstraint
     }
     
 ```
@@ -127,7 +128,7 @@ otherChildView.attachToParent(parentView)
     
  ```
  
-Hopefully you're starting to see how easy this makes simple layouts. All of the verbosity of autolayout is abstracted away and you can chain methods together to write code quickly and cleanly. Not all layouts are this simple, however, and that's where a lot of the other optional parameters come in to play:
+Not all layouts are this simple, especially dynamic ones that respond to user input. That's where a lot of the other optional parameters come in to play:
 
 ```swift
 // Constraints are set to active by default, but don't need to be
@@ -146,10 +147,8 @@ childView.attachToParent(parentView)
     }
 
 
-/* 
-    Let's make two left constraints, both not active,
-    and capture them for later use, maybe in an animation.
-*/
+/*  Let's make two left constraints, both not active,
+    and capture them for later use, maybe in an animation   */
 var leftConstraint1 : NSLayoutConstraint?
 var leftConstraint2: NSLayoutConstraint?
 
@@ -165,8 +164,7 @@ childView.attachToParent(parentView)
 
         
 /*  You can even use lessThanOrEqualTo or greaterThanOrEqualTo constraint types,
-    which are necessary in some advanced layouts
- */
+    which are necessary in some advanced layouts    */
 
 childView.attachToParent(parentView)
     .pinLeft(constraintType: .lessThanOrEqualTo)
