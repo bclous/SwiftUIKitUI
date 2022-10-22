@@ -131,7 +131,7 @@ Let's explore pinLeft(...), which has the same optional parameters as all of the
 
 ```
 
-Unlink pinSides(...) where we pass in an optional view to pin to, here we pass in an optional anchor. If nil, it will default to the same anchor on the parent view (i.e. pinLeft() will pin the view's left anchor to the parent's left anchor). Of course, we don't always want this, so we have the option to set it to something else.
+Unlink pinSides(...) where we pass in an optional view to pin to, here we pass in an optional anchor. If nil, it will default to the same anchor on the parent view (i.e. pinLeft() will pin the view's left anchor to the parent's left anchor).
 
 We can also customize the padding, and/or the safe area behavior (respectSafeAreas only applies when anchor is nil, otherwise it will pin to the anchor that was explicitly set). 
 
