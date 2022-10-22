@@ -134,7 +134,13 @@ extension UIView {
     }
     
     
-    @discardableResult public func pinSides(_ sides: [Side] = [.left, .right, .top, .bottom], toView anchorView: UIView? = nil, padding: CGFloat = 0, customPadding: [Padding] = [], respectSafeAreas: Bool = false, customSafeAreas: [Side] = [], capture: ((_ constraints: SideConstraints) -> Void)? = nil) -> Self {
+    @discardableResult public func pinSides(_ sides: [Side] = [.left, .right, .top, .bottom],
+                                            toView anchorView: UIView? = nil,
+                                            padding: CGFloat = 0,
+                                            customPadding: [Padding] = [],
+                                            respectSafeAreas: Bool = false,
+                                            customSafeAreas: [Side] = [],
+                                            capture: ((_ constraints: SideConstraints) -> Void)? = nil) -> Self {
         let viewToPinTo = anchorView ?? nonOptionalSuperview
         self.translatesAutoresizingMaskIntoConstraints = false
         

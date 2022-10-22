@@ -1,6 +1,6 @@
-# SwiftUIKitUI
+# SwiftUIKitUI (SUIKUI)
 
-SwiftUIKitUI is a set of lightweight extensions that make working with AutoLayout and UIKit easy and intuitive. After 5-minutes you'll never go back.
+SwiftUIKitUI (SUIKUI) is a set of lightweight extensions that make working with AutoLayout and UIKit easy and intuitive. After 5-minutes you'll never go back.
 
 ## AutoLayout
 
@@ -34,28 +34,32 @@ childView.attachToParent(parentView)
 ```
 <br />
 
-That's it! pinSides(...) is the most basic method (we'll get to more advanced stuff in a bit) but its worth exploring some of the optional parameters because the patterns you see here are mostly consistent throughout SUIKUI. 
+That's it! Just two methods:
+
+* `attachToParent(_ parentView:)` - This is the same as parentView.addSubview(childView), just in reverse. Calling this from the childView allows us to chain additional layout methods after it, the most basic being...
+* `pinSides(...)` - This takes care of the rest of the layout. pinSides(...) is the most basic method (we'll get to more advanced stuff in a bit) but its worth exploring the optional parameters because the patterns you see here are mostly consistent throughout SUIKUI. 
 
 ```swift
 
-// We don't always want to pin a view to its parent. Lets pin to another child view instead
-// Be careful here, just like with autolayout, they must share an ancestor
-childView.attachToParent(parentView)
-    .pinSides(toView: otherChildView, padding: 20)
+@discardableResult public func pinSides(_ sides: [Side] = [.left, .right, .top, .bottom],
+                                        toView anchorView: UIView? = nil,
+                                        padding: CGFloat = 0,
+                                        customPadding: [Padding] = [],
+                                        respectSafeAreas: Bool = false,
+                                        customSafeAreas: [Side] = [],
+                                        capture: ((_ constraints: SideConstraints) -> Void)? = nil) -> Self
+                                        
+```
 
-// Want to customize the padding? No problem
-childView.attachToParent(parentView)
-    .pinSides(padding: 20, customPadding: [.left(40), .right(40)])
+You can customize which sides you pin (it defaults to all of them), and/or which anchorView you're pinning to (if nil, it defaults to the parent view). The padding and safe area behavior can be also be customized overall or on a per side level. SUIKUI often abstracts away the NSLayoutConstraints from the user, but sometimes you need to capture the constraints directly to mutate them later on. The capture block allows you to do this:
 
-// Safe areas are not respected by default, but we can change that
-childView.attachToParent(parentView)
-    .pinSides(respectSafeAreas: true)
 
-// We can even capture the constraints if we need to reference and/or mutate them later
+```swift
+// We can capture the constraints if we need to reference and/or mutate them later
 var topConstraint : NSLayoutConstraint!
 var bottomConstraint : NSLayoutConstraint!
 childView.attachToParent(parentView)
-    .pinSides(toView: otherChildView, padding: 20) { constraints in
+    .pinSides(padding: 20) { constraints in
         topConstraint = constraints.topConstraint
         bottomConstraint = constraints.bottomConstraint
     }
@@ -92,88 +96,72 @@ pinSides(…) is great, but only for container views and the most basic layouts.
 
 <br />
 
-Let's see them in action:
+Let's see them in action. We can perform the equivalent to pinSides() using left, right, top and bottom:
 
 ```swift
-
-/*  Views are pinned to the same anchor on their parent view, unless we tell them otherwise.
-    i.e. pinLeft() will pin the child's left view to its parent's left view.    */
 
 childView.attachToParent(parentView)
     .pinLeft()
     .pinRight()
     .pinTop()
     .pinBottom()
-    
-// this is the equivalent to pinSides()
 
 ```
 
 You'll notice how you can chain these methods together, which is a signature feature in SUIKUI. It makes writing layout code (and other UIKit code as you'll see below) really quick and easy. This style was inpsired by SwiftUI, but unlike SwiftUI, the order in which you chain these methods does not matter, so go nuts.
 
-Let's keep going: 
+Let's explore pinLeft(...), which has the same optional parameters as all of the other "Sides" methods:
 
-```swift 
+```swift
 
-/*  Of course, we don't always want to pin a child anchor to its parent's
-    corresponding anchor. We can use the optional anchor parameter to set a 
-    different one whereever we want, and optionally add padding.    */
+@discardableResult public func pinLeft(anchor: NSLayoutXAxisAnchor? = nil, 
+                                       padding: CGFloat = 0, 
+                                       respectSafeAreas: Bool = false, 
+                                       constraintType: ConstraintType = .equalTo, 
+                                       isActive: Bool = true, 
+                                       priority: UILayoutPriority = .required, 
+                                       capture: ((_ constraint: NSLayoutConstraint) -> Void)? = nil) -> Self
+
+```
+
+Unlink pinSides(...) where we pass in an optional view to pin to, here we pass in an optional anchor. If nil, it will default to the same corresponding anchor on the parent view (i.e. pinLeft() will pin the view's left anchor to the parent's left anchor). Of course, we don't always want this, so we have the option to set it to something else.
+
+We can also customize the padding, and/or the safe area behavior (respectSafeAreas only applies when anchor is nil, otherwise it will pin to the anchor that was explicitly set). The constraint type defaults to .equalTo, but it can be set to .greaterThanOrEqualTo or .lessThanOrEqualTo which are used in more advanced layouts. The constraint is assumed to be active, with a priority of .required, but these can also be changed. And of course, we can capture the constraint in the capture block, for use later on. 
+
+Let's take these all for a spin: 
+
+```swift
+
+/*  Let's create a 60pt circle in the top left hand corner with 20pts padding */
+
+circleView.attachToParent(parentView)
+    .pinTop(padding: 20)
+    .pinLeft(padding: 20)
+    .makeCircle(diameter: 60)
+
+/*  Let's lay a view out 20 pts to the right of that child view, 
+    lined up vertically with the same height, and then extend it 
+    to the end of the screen with 20 pts padding   */
  
- childView.attachToParent(parentView)
-    .pinLeft(padding: 20)
-    .pinRight(anchor: otherChildView.leftAnchor, padding: 20)
-    .pinTop(padding: 20)
-    .pinBottom(anchor: otherChildView.topAnchor)
-    
-/*  Instead of pinning sides, we can use makeWidth(..) and makeHeight(...)
-    to set an explicit height or width, in points. Let's pin a 40x40 square
-    in the upper left corner, with a padding of 20 on each side.    */
-
-childView.attachToParent(parentView)
-    .pinTop(padding: 20)
-    .pinLeft(padding: 20)
-    .makeWidth(40)
-    .makeHeight(40)
-    
-/*   Let's layout another view to the right of the one above, and extend
-     it to the right edge, maintaining the same padding and 40pt height.    */
-
-otherChildView.attachToParent(parentView)
-    .pinLeft(anchor: childView.rightAnchor, padding: 20)
+ secondaryView.attachToParent(parentView)
+    .pinLeft(anchor: circleView.rightAnchor, paddding: 20)
     .pinRight(padding: 20)
-    .pinTop(anchor: childView.topAnchor)
-    .pinBottom(anchor: childView.bottomAnchor)
+    .pinTop(anchor: circleView.topAnchor)
+    .pinBottom(anchor: circleView.bottomAnchor)
     
+/*  Alternatively, we could have accomplished the same with:  */    
     
-/*  Alternatively, we could have used pinCenterY(...) and matchHeight(...)
-    to achieve the same layout.     */
-
-otherChildView.attachToParent(parentView)
-    .pinLeft(anchor: childView.rightAnchor, padding: 20)
+ otherChildView.attachToParent(parentView)
+    .pinLeft(anchor: circleView.rightAnchor, paddding: 20)
     .pinRight(padding: 20)
-    .pinCenterY(anchor: childView.centerYAnchor)
-    .matchHeight(anchor: childView.heightAnchor)
+    .pinCenterY(anchor: circleView.centerYAnchor)
+    .matchHeight(anchor: circleView.heightAnchor)
     
  ```
- 
+
 Not all layouts are this simple, especially dynamic ones that respond to user input. That's where a lot of the other optional parameters come in to play:
 
 ```swift
-// Constraints are set to active by default, but don't need to be
-childView.attachToParent(parentView)
-    .pinLeft(isActive: false)
-
-// Constraints are also required by default, but don't need to be
-childView.attachToParent(parentView)
-    .pinLeft(priority: .defaultLow)
-
-// Constraints can be "captured" for use later on
-var leftConstraint : NSLayoutConstraint?
-childView.attachToParent(parentView)
-    .pinLeft() { constraint in
-        leftConstraint = constraint
-    }
-
 
 /*  Let's make two left constraints, both not active,
     and capture them for later use, maybe in an animation   */
@@ -241,23 +229,12 @@ iconView.attachToParent(parentView)
     .roundCorners(radius: 5)
     .addBorder(width: 2, color: UIColor.black)
     .applyBackgroundColor(UIColor.blue)
-    
-/*  We could even make it a circle in one line. Under the hood, this
-    combines makeWidth(...), makeHeight(...), and roundCorners(...)
- */
-        
-iconView.attachToParent(parentView)
-    .pinTop(padding: 20)
-    .pinLeft(padding: 20)
-    .makeCircle(radius: 40)
-    .addBorder(width: 2, color: UIColor.black)
-    .applyBackgroundColor(UIColor.blue)
-        
+            
 ```
 
 ### UILabel
 
-UILabels have some funky qualities. They are self-sizing by default, until some other constraint pushes on them. They are single line by default, and to change that, you have to set the number of lines to...zero. They are annoying to format, as you have often have to change their text value, color, font, alignment, and textSize in multiple lines of code. SwiftUIKitUI helps to make this all easier with some more intuitive APIs:
+UILabels have some funky qualities. They are self-sizing by default, until some other more powerful constraint pushes on them. They are single line by default, and to change that, you have to set the number of lines to...zero. They are annoying to format, as you have often have to change their text value, color, font, alignment, and textSize in multiple lines of code. SwiftUIKitUI helps to make this all easier with some more intuitive APIs:
 
 ```swift
 label
@@ -349,7 +326,7 @@ buttonStackView.attachToParent(parentView)
     .addArrangedSubviews([button1, button2, button3])
 ```
 <br />
-If you really want to be fancy, you can use the createChild<T>(ofType: T.Type) method provided by SwiftUIKitUI to create the stack view (or some other container view) directly inline, and (optionally) capture it in a variable. Combined with using pinSides(...) with non default parameters, we can accomplish this whole layout in five lines!
+If you really want to be fancy, you can use the createChild<T>(ofType: T.Type) method provided by SUIKUI to create the stack view (or some other container view) directly inline, and (optionally) capture it in a variable. Combined with using pinSides(...) with non default parameters, we can accomplish this whole layout in five lines!
     
 ```swift
 let stackView = parentView.createChild(ofType: UIStackView.self)
@@ -358,27 +335,5 @@ let stackView = parentView.createChild(ofType: UIStackView.self)
     .makeVertical(spacing: 10, distribution: .fillEqually, alignment: .fill)
     .addArrangedSubviews([button1, button2, button3])
 ```
-    
-### UITableView
 
-After implementing hundreds (or thousands?) of tableViews, I got really sick of the whole dance of assigning the delegate and datasource (almost always to the same ViewController implementing them), registering all the cell types, and then dequeing cells. Registering cells was not only annoying, but forgetting to do so would result in a runtime crash (assuming you hard unwrap in dequeue, which you probably do).
-
-SwiftUIKitUI has a few convenience APIs to make this a little cleaner and easier. Wherever you configure the tableView, you can use implementLocally() to assign the datasource and delegate to the viewController you're using:
-    
-```swift
-tableView.attachToParent(parentView)
-    .pinSides(useSafeAreas: true)
-    .implementLocally()
-    .hideScrollIndicator()
-```
-    
-Then, in cellForRow, instead of using dequeueReusableCell(...), use createCustomCellOfType<T>(type: T.Type). Under the hood, this will automatically register the cell by its class name, and then create it by using dequeueReusableCell. No more registering cells (or forgetting to)!
-    
-```swift
-let cell = createCustomCellOfType(CustomCell.self)
-cell.configureCell(viewModel: customCellViewModel)
-return cell
-```
-
-It's possible this has scroll performance implications. I couldn't find the "cost" of registering a cell anywhere. If anyone has any insight, I'd love to hear it!
 

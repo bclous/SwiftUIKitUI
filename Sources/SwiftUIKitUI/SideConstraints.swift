@@ -8,8 +8,8 @@
 import UIKit
 
 public struct SideConstraints {
-    public let leftConstraint : NSLayoutConstraint
-    public let rightConstraint : NSLayoutConstraint
-    public let topConstraint : NSLayoutConstraint
-    public let bottomConstraint : NSLayoutConstraint
+    public let leftConstraint : NSLayoutConstraint?
+    public let rightConstraint : NSLayoutConstraint?
+    public let topConstraint : NSLayoutConstraint?
+    public let bottomConstraint : NSLayoutConstraint?
 }
