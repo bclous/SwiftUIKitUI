@@ -32,7 +32,6 @@ childView.attachToParent(parentView)
     .pinSides(padding: 20)
     
 ```
-<br />
 
 That's it! Just two methods:
 
@@ -348,6 +347,9 @@ let stackView = parentView.createChild(ofType: UIStackView.self)
     .makeVertical(spacing: 10, distribution: .fillEqually, alignment: .fill)
     .addArrangedSubviews([button1, button2, button3])
 ```
+    
+<br />
+<br />
     
 ## Requirements
 
