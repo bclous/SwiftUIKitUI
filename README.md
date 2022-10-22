@@ -1,10 +1,10 @@
 # SwiftUIKitUI (SUIKUI)
 
-SwiftUIKitUI (SUIKUI) is a set of lightweight extensions that make working with AutoLayout and UIKit easy and intuitive. After 5-minutes you'll never go back.
+SwiftUIKitUI (SUIKUI) is a set of lightweight extensions that make working with Auto Layout and UIKit easy and intuitive. After 5-minutes you'll never go back.
 
-## AutoLayout
+## Auto Layout
 
-Programmatic layout in UIKit with AutoLayout is powerful, imperative, and adapts well to the screen sizes iOS developers are expected to support. It’s also way too verbose, overly complicated, and a pain to work with. SUIKUI aims to solves these problems while staying true to the framework and avoiding new patterns or layout paradigms. Let's have a look!
+Programmatic layout in UIKit with Auto Layout is powerful, imperative, and adapts well to the screen sizes iOS developers are expected to support. It’s also way too verbose, overly complicated, and a pain to work with. SUIKUI aims to solves these problems while staying true to the framework and avoiding new patterns or layout paradigms. Let's have a look!
 <br />
 
 Let's say you want to pin a view directly to its parent, with a padding of 20pts on each side. Your standard "container" view. You may be used to writing something like this:
@@ -101,7 +101,7 @@ pinSides(…) is great, but only for container views and the most basic layouts.
 
 <br />
 
-I like to think this is exactly what Apple's AutoLayout APIs would have looked like if they were written in Swift, with the power of optional parameters, instead of Objective-C. 
+I like to think this is exactly what Apple's Auto Layout APIs would have looked like if they were written in Swift, with the power of optional parameters, instead of Objective-C. 
 
 Let's see them in action. We can perform the equivalent to pinSides() using left, right, top and bottom:
 
@@ -200,7 +200,7 @@ childView.attachToParent(parentView)
     .pinBottom(constraintType: .lessThanOrEqualTo)
 ```
 
-All of this is still AutoLayout, constraints, and anchors under the hood. So don't be shy about adding SUIKUI to a project with existing layout code. Even this purposely silly example where we mix traditional Autolayout with SUIKUI on the same view would be totally fine:
+All of this is still Auto Layout, constraints, and anchors under the hood. So don't be shy about adding SUIKUI to a project with existing layout code. Even this purposely silly example where we mix traditional Auto Layout with SUIKUI on the same view would be totally fine:
 
 ```swift
 parentView.addSubview(childView)
@@ -215,7 +215,7 @@ childView
 
 
 ## Beyond Layout
-Making programmatic AutoLayout easy is the superpower of SUIKUI, but there's some other features sprinkled on top of UIView, UIStackView, UILabel, and UIImageView that allow you to layout and configure your views all in one chained method, keeping your code clean and readable while allowing you to build quickly. 
+Making programmatic Auto Layout easy is the superpower of SUIKUI, but there's some other features sprinkled on top of UIView, UIStackView, UILabel, and UIImageView that allow you to layout and configure your views all in one chained method, keeping your code clean and readable while allowing you to build quickly. 
 <br />
 
 ### UIView
