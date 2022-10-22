@@ -9,23 +9,11 @@ import UIKit
 
 extension UIView {
     
-    @discardableResult public func createChild() -> UIView {
-        let newChild = UIView()
-        addSubview(newChild)
-        return newChild
-    }
-    
-    @discardableResult public func createChild<T>(ofType type: T.Type) -> T where T: UIView {
-        let newChild = T.init()
-        addSubview(newChild)
-        return newChild
-    }
-    
     @discardableResult public func attachToParent(_ parent: UIView) -> Self {
         parent.addSubview(self)
         return self
     }
-    
+        
     @discardableResult public func pinLeft(anchor: NSLayoutXAxisAnchor? = nil, padding: CGFloat = 0, respectSafeAreas: Bool = false, constraintType: ConstraintType = .equalTo, isActive: Bool = true, priority: UILayoutPriority = .required, capture: ((_ constraint: NSLayoutConstraint) -> Void)? = nil) -> Self {
         return pinHorizontal(.left, anchor: anchor, padding: padding, respectSafeAreas: respectSafeAreas, constraintType: constraintType, isActive: isActive, priority: priority, capture: capture)
     }
@@ -76,8 +64,6 @@ extension UIView {
         return self
     }
     
-    // pin center here
-    
     @discardableResult public func matchHeight(anchor: NSLayoutDimension? = nil, offset: CGFloat = 0, multiplier: CGFloat = 1, constraintType: ConstraintType = .equalTo, isActive: Bool = true, priority: UILayoutPriority = .required, capture: ((_ constraint: NSLayoutConstraint) -> Void)? = nil) -> Self {
         return matchSizeType(.height, anchor: anchor, offset: offset, multiplier: multiplier, constraintType: constraintType, isActive: isActive, priority: priority, capture: capture)
     }
@@ -125,7 +111,7 @@ extension UIView {
         
         capture?(SizeConstraints(heightConstraint: heightConstraint, widthConstraint: widthConstraint))
         return self
-    
+        
     }
     
     @discardableResult public func makeCircle(diameter: CGFloat, capture: ((_ sizeConstraints: SizeConstraints) -> Void)? = nil) -> Self {
@@ -214,9 +200,29 @@ extension UIView {
         return self
     }
     
+}
+
+// To create views inline and immediately start chaining methods on them
+extension UIView {
     
-    // Implementation only, don't really want to expose these and complicate which method should be used when
+    @discardableResult public func createChild() -> UIView {
+        let newChild = UIView()
+        addSubview(newChild)
+        return newChild
+    }
     
+    @discardableResult public func createChild<T>(ofType type: T.Type) -> T where T: UIView {
+        let newChild = T.init()
+        addSubview(newChild)
+        return newChild
+    }
+    
+}
+
+    
+// Implementation only, don't really want to expose these and complicate which method should be used when
+extension UIView {
+
     @discardableResult private func pinHorizontal(_ pinType: HorizontalPinType, anchor: NSLayoutXAxisAnchor?, padding: CGFloat, respectSafeAreas: Bool, constraintType: ConstraintType, isActive: Bool, priority: UILayoutPriority, capture: ((_ constraint: NSLayoutConstraint) -> Void)?) -> Self {
         let anchorPoint = anchor ?? pinType.parentMirrorAnchor(parentView: nonOptionalSuperview, respectsSafeAreas: respectSafeAreas)
         let constraint = pinType.constraint(view: self, anchor: anchorPoint, constraintType: constraintType, padding: padding)

@@ -115,7 +115,7 @@ childView.attachToParent(parentView)
 
 ```
 
-You'll notice how you can chain these methods together, which is a signature feature in SUIKUI. It makes writing layout code (and other UIKit code as you'll see below) really easy and keeps things super readable. This style was inpsired by SwiftUI, but unlike SwiftUI, the order in which you chain these methods does not matter, so go nuts.
+You'll notice how you can chain these methods together, which is a signature feature in SUIKUI. It makes writing layout code (and other UIKit code as you'll see below) really easy and keeps it very readable. This style was inpsired by SwiftUI, but unlike SwiftUI, the order in which you chain these methods does not matter, so go nuts.
 
 Let's explore pinLeft(...), which has the same optional parameters as all of the "Sides" methods:
 
@@ -200,7 +200,7 @@ childView.attachToParent(parentView)
     .pinBottom(constraintType: .lessThanOrEqualTo)
 ```
 
-All of this is still AutoLayout, constraints, and anchors under the hood. So don't be shy about adding SUIKUI to a project with existing layouts. Even this purposesly silly example where we mix traditional Autolayout with SUIKUI on the same view would be totally fine:
+All of this is still AutoLayout, constraints, and anchors under the hood. So don't be shy about adding SUIKUI to a project with existing layout code. Even this purposely silly example where we mix traditional Autolayout with SUIKUI on the same view would be totally fine:
 
 ```swift
 parentView.addSubview(childView)
