@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "SwiftUIKitUI",
     platforms: [
-        .iOS("13.0"),
+        .iOS("11.0"),
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
