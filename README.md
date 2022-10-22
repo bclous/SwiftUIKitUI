@@ -4,7 +4,7 @@ SwiftUIKitUI (SUIKUI) is a set of lightweight extensions that make working with 
 
 ## AutoLayout
 
-Programmatic layout in UIKit with AutoLayout is powerful, imperative, and adapts well to all the different screen sizes iOS developers are expected to support. It’s also way too verbose, overly complicated, and a pain to work with. SwiftUIKitUI aims to solves these problems while staying true to the framework and avoiding new patterns or layout paradigms. Let's have a look!
+Programmatic layout in UIKit with AutoLayout is powerful, imperative, and adapts well to all the screen sizes iOS developers are expected to support. It’s also way too verbose, overly complicated, and a pain to work with. SUIKUI aims to solves these problems while staying true to the framework and avoiding new patterns or layout paradigms. Let's have a look!
 <br />
 
 Let's say you want to pin a view directly to its parent, with a padding of 20pts on each side. Your standard "container" view. You may be used to writing something like this:
@@ -110,7 +110,7 @@ childView.attachToParent(parentView)
 
 You'll notice how you can chain these methods together, which is a signature feature in SUIKUI. It makes writing layout code (and other UIKit code as you'll see below) really quick and easy. This style was inpsired by SwiftUI, but unlike SwiftUI, the order in which you chain these methods does not matter, so go nuts.
 
-Let's explore pinLeft(...), which has the same optional parameters as all of the other "Sides" methods:
+Let's explore pinLeft(...), which has the same optional parameters as all of the "Sides" methods:
 
 ```swift
 
@@ -151,7 +151,7 @@ circleView.attachToParent(parentView)
     
 /*  Alternatively, we could have accomplished the same with:  */    
     
- otherChildView.attachToParent(parentView)
+  secondaryView.attachToParent(parentView)
     .pinLeft(anchor: circleView.rightAnchor, paddding: 20)
     .pinRight(padding: 20)
     .pinCenterY(anchor: circleView.centerYAnchor)
@@ -183,23 +183,25 @@ childView.attachToParent(parentView)
     which are necessary in some advanced layouts    */
 
 childView.attachToParent(parentView)
-    .pinLeft(constraintType: .lessThanOrEqualTo)
+    .pinLeft()
+    .pinRight()
+    .pinTop()
+    .pinBottom(constraintType: .lessThanOrEqualTo)
 ```
 
-Once you get used to chaining everything, you'll want to do it everywhere. So there's even createChild() and createChild<T>(ofType: T.Type) methods which allow you to create views (and optionally capture them) directly inline. This is great for creating container views that don't need to be accessed through global variables
-    
+All of this is still AutoLayout, constraints, and anchors under the hood. So don't be shy about adding SUIKUI to a project with existing layouts. Even this silly example where we mix traditional Autolayout with SUIKUI on the same view would be totally fine:
+
 ```swift
-let containerView = parentView.createChild()
-    .pinSides()
-
-let stackView = parentView.createChild(ofType: UIStackView.self)
-    .pinSides(padding: 20)
-
-let imageView = parentView.createChild(ofType: UIImageView.self)
-    .pinTop(padding: 20)
-    .pinLeft(padding: 20)
-    .makeCircle(radius: 40)
+parentView.addSubview(childView)
+childView.translatesAutoresizingMaskIntoConstraints = false
+childView.leftAnchor.constraint(equalTo: parentView.leftAnchor, constant: 20).isActive = true
+childView.rightAnchor.constraint(equalTo: parentView.rightAnchor, constant: -20).isActive = true
+    
+childView
+    .pinTop(padding: 20, respectsSafeArea: true)
+    .pinBottom(padding: 20, repectsSafeArea: true)
 ```
+
 
 ## Beyond Layout
 Making programmatic AutoLayout easy is the superpower of SwiftUIKitUI, but there's some other features sprinkled on top of UIView, UIStackView, UILabel, and UIImageView that allow you to layout and configure your views all in one chained method, keeping your code clean and readable while allowing you to build quickly. 
