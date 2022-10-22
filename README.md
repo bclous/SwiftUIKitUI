@@ -2,7 +2,27 @@
 
 SwiftUIKitUI (SUIKUI) is a set of lightweight extensions that make working with Auto Layout and UIKit easy and intuitive. After 5-minutes you'll never go back.
 
-## Auto Layout
+## Requirements
+
+- iOS 11.0+
+
+## Installation
+
+### CocoaPods
+
+To integrate SwiftUIKitUI into your Xcode project using CocoaPods, specify it in your `Podfile`:
+
+
+```ruby
+pod 'SwiftUIKitUI'
+```
+
+
+### Carthage & SPM
+
+Carthage and Swift Package Manager are also supported.
+
+## Usage - Auto Layout
 
 Programmatic layout in UIKit with Auto Layout is powerful, imperative, and adapts well to the screen sizes iOS developers are expected to support. It’s also way too verbose, overly complicated, and a pain to work with. SUIKUI aims to solves these problems while staying true to the framework and avoiding new patterns or layout paradigms. Let's have a look!
 <br />
