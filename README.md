@@ -4,7 +4,7 @@ SwiftUIKitUI (SUIKUI) is a set of lightweight extensions that make working with 
 
 ## Auto Layout
 
-Programmatic layout in UIKit with Auto Layout is powerful, imperative, and adapts well to the screen sizes iOS developers are expected to support. It’s also way too verbose, overly complicated, and a pain to work with. SUIKUI aims to solves these problems while staying true to the framework and avoiding new patterns or layout paradigms. Let's have a look!
+Programmatic layout in UIKit with Auto Layout is powerful when done well, but it's way too verbose, overly complicated, and a pain to work with. SUIKUI aims to solves these problems while staying true to the framework and avoiding new patterns or layout paradigms. Let's have a look!
 <br />
 
 Let's say you want to pin a view directly to its parent, with a padding of 20pts on each side. Your standard "container" view. You may be used to writing something like this:
@@ -22,7 +22,7 @@ NSLayoutConstraint.activate([
 
 ```
 
-Yuck. So verbose! Five references to parentView. Six to childView! Of course, don't forget to set  translatesAutoresizingMaskIntoConstraints = false, because, reasons (but seriously, don't forget). Wrapping each constraint in an array inside a static method on NSLayoutConstraint...cool. Oh, and intimate knowledge of the unique iOS coordinate system is required to make sure you don't set the signs on the constants incorrectly. Fantastic.  
+Yuck. Five references to parentView. Six to childView! Of course, don't forget to set  translatesAutoresizingMaskIntoConstraints = false, because, reasons (but seriously, don't forget). Wrapping each constraint in an array inside a static method on NSLayoutConstraint...cool. Oh, and intimate knowledge of the unique iOS coordinate system is required to make sure you don't set the signs on the constants incorrectly. Fantastic.  
 
 There must be a better way! With SUIKUI, there is.  
 
