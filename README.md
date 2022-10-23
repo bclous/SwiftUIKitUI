@@ -72,7 +72,7 @@ childView.attachToParent(parentView)
 
 <br />
 
-pinSides(…) is great, but only for container views and the most basic layouts. SUKUI provides several more granular APIs which are likely the ones you'll use most of the time:
+`pinSides(…)` is great, but only for container views and the most basic layouts. SUKUI provides several more granular APIs which are likely the ones you'll use most of the time:
  
 #### Sides
 * `pinLeft(...)`
@@ -102,7 +102,7 @@ pinSides(…) is great, but only for container views and the most basic layouts.
 
 I like to think this is exactly what Apple's Auto Layout APIs would have looked like if they were written in Swift, with the power of optional parameters, instead of Objective-C. 
 
-Let's see them in action. We can perform the equivalent to pinSides() using left, right, top and bottom:
+Let's see them in action. We can perform the equivalent to `pinSides()` using left, right, top and bottom:
 
 ```swift
 
@@ -116,7 +116,7 @@ childView.attachToParent(parentView)
 
 You'll notice how you can chain these methods together, which is a signature feature in SUIKUI. It makes writing layout code (and other UIKit code as you'll see below) really easy and keeps it very readable. This style was inspired by SwiftUI, but unlike SwiftUI, the order in which you chain these methods does not matter, so go nuts.
 
-Let's explore pinLeft(...), which has the same optional parameters as all of the "Sides" methods:
+Let's explore `pinLeft(...)`, which has the same optional parameters as all of the "Sides" methods:
 
 ```swift
 
@@ -130,7 +130,7 @@ Let's explore pinLeft(...), which has the same optional parameters as all of the
 
 ```
 
-Unlink pinSides(...) where we pass in an optional view to pin to, here we pass in an optional anchor. If nil, it will default to the same anchor on the parent view (i.e. pinLeft() will pin the view's left anchor to the parent's left anchor).
+Unlink `pinSides(...)` where we pass in an optional view to pin to, here we pass in an optional anchor. If nil, it will default to the same anchor on the parent view (i.e. pinLeft() will pin the view's left anchor to the parent's left anchor).
 
 We can also customize the padding, and/or the safe area behavior (respectSafeAreas only applies when anchor is nil, otherwise it will pin to the anchor that was explicitly set). 
 
